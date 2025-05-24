@@ -14,7 +14,7 @@
         }
 
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacMacSystemFont, sans-serif;
             line-height: 1.7;
             color: #1a1a1a;
             background: #0a0a0a;
@@ -46,7 +46,7 @@
             z-index: 2;
         }
 
-        /* Navigation Bar */
+        /* Navigation Bar (Desktop) */
         .nav {
             position: fixed;
             top: 30px;
@@ -80,6 +80,84 @@
 
         .nav a:hover::after {
             width: 100%;
+        }
+
+        /* Hamburger Menu Icon */
+        .hamburger-menu {
+            display: none; /* Hidden by default, shown on mobile via media query */
+            position: fixed;
+            top: 30px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: #00ff88;
+            border-radius: 5px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001; /* Above navigation */
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #0a0a0a;
+            border-radius: 2px;
+            margin: 4px 0;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger-menu.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* Mobile Navigation Overlay */
+        .mobile-nav-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .mobile-nav-overlay.open {
+            display: flex;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-overlay a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 2rem;
+            padding: 15px 0;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .mobile-nav-overlay a:hover {
+            color: #00ff88;
         }
 
         /* Hero Section */
@@ -154,14 +232,9 @@
             position: relative;
             z-index: 3;
             box-shadow: 0 30px 80px rgba(0, 255, 136, 0.3);
-            /* If you want to use an image directly as background for the circle */
-            /* background-image: url('path/to/your/profile-image.jpg'); */
-            /* background-size: cover; */
-            /* background-position: center; */
-            /* text-indent: -9999px; /* Hide icon if image is used */
         }
 
-        .profile-pic img { /* Style for an <img> tag inside .profile-pic */
+        .profile-pic img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -606,11 +679,10 @@
             margin-top: 40px;
         }
 
-        /* Scroll Arrows */
+        /* Scroll Arrows (Now for Section Navigation) */
         .scroll-arrow {
             position: fixed;
             right: 40px;
-            bottom: 100px; /* Adjust for scroll-to-bottom */
             background: rgba(0, 255, 136, 0.7);
             color: #0a0a0a;
             width: 50px;
@@ -626,7 +698,7 @@
             z-index: 999;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(20px);
+            transform: translateY(20px); /* Initial state for animation */
         }
 
         .scroll-arrow:hover {
@@ -641,12 +713,12 @@
             transform: translateY(0);
         }
 
-        #scroll-to-top {
-            bottom: 100px;
+        #scroll-to-prev-section {
+            bottom: 100px; /* Position for previous section arrow */
         }
 
-        #scroll-to-bottom {
-            bottom: 30px;
+        #scroll-to-next-section {
+            bottom: 30px; /* Position for next section arrow */
         }
 
 
@@ -692,13 +764,11 @@
             }
 
             .nav {
-                position: relative;
-                top: 20px;
-                right: 0;
-                justify-content: center;
-                margin-bottom: 40px;
-                gap: 15px; /* Adjust gap for smaller screens */
-                flex-wrap: wrap; /* Allow navigation items to wrap */
+                display: none; /* Hide desktop nav on mobile */
+            }
+
+            .hamburger-menu {
+                display: flex; /* Show hamburger on mobile */
             }
 
             .skills-grid {
@@ -719,13 +789,73 @@
                 height: 40px;
                 font-size: 20px;
             }
-            #scroll-to-top {
+            #scroll-to-prev-section {
                 bottom: 80px;
             }
-            #scroll-to-bottom {
+            #scroll-to-next-section {
                 bottom: 20px;
             }
+
+            .cta-buttons {
+                flex-direction: column; /* Stack buttons vertically on small screens */
+                align-items: center;
+                gap: 15px;
+            }
+
+            .hero-image {
+                height: 400px; /* Adjust height for mobile */
+            }
+
+            .profile-container {
+                width: 250px;
+                height: 250px;
+            }
+
+            .orbit-1 {
+                width: 300px;
+                height: 300px;
+                top: -25px;
+                left: -25px;
+            }
+
+            .orbit-2 {
+                width: 380px;
+                height: 380px;
+                top: -65px;
+                left: -65px;
+            }
         }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-content .description {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .skill-card {
+                padding: 30px 20px;
+            }
+
+            .project-content {
+                padding: 25px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr; /* Stack contact items on very small screens */
+            }
+        }
+
 
         .scroll-indicator {
             position: fixed;
@@ -764,8 +894,24 @@
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
-        <a href="#resume">Resume</a> <a href="#contact">Contact</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
     </nav>
+
+    <div class="hamburger-menu" id="hamburger-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+        <a href="#about" class="mobile-nav-link">About</a>
+        <a href="#skills" class="mobile-nav-link">Skills</a>
+        <a href="#projects" class="mobile-nav-link">Projects</a>
+        <a href="#experience" class="mobile-nav-link">Experience</a>
+        <a href="#resume" class="mobile-nav-link">Resume</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+    </div>
 
     <div class="container">
         <section class="hero" id="about">
@@ -781,7 +927,7 @@
                     <div class="cta-buttons">
                         <a href="#contact" class="btn btn-primary">
                             <i class="fas fa-rocket"></i>
-                            Contact Me
+                            Let's Connect
                         </a>
                         <a href="#projects" class="btn btn-secondary">
                             <i class="fas fa-chart-bar"></i>
@@ -793,6 +939,7 @@
                     <div class="profile-container">
                         <div class="profile-pic">
                             <img src="Images/picture_2.jpg" alt="Omitogun Emmanuel">
+                        </div>
                         <div class="orbit orbit-1">
                             <div class="orbit-dot"></div>
                         </div>
@@ -909,7 +1056,7 @@
                 <div class="project-card">
                     <div class="project-image">
                             <img src="Images/project_2.png" alt="Supply Chain Efficiency Dashboard Thumbnail"> </div>
-                    <div class="project-content">
+                    <div class="project=">
                         <h3>Supply Chain Efficiency Dashboard</h3>
                         <p>Analyzed inventory turnover and demand patterns, created automated reporting system that reduced excess inventory by 30% and stockouts by 20%.</p>
                         <div class="tech-stack">
@@ -1066,10 +1213,10 @@
         </section>
     </div>
 
-    <div class="scroll-arrow" id="scroll-to-top">
+    <div class="scroll-arrow" id="scroll-to-prev-section">
         <i class="fas fa-chevron-up"></i>
     </div>
-    <div class="scroll-arrow" id="scroll-to-bottom">
+    <div class="scroll-arrow" id="scroll-to-next-section">
         <i class="fas fa-chevron-down"></i>
     </div>
 
@@ -1084,11 +1231,26 @@
             });
         });
 
-        // Orbit animation for profile picture (already present, ensuring it works)
-        // This JS is for the orbit dots if you have a complex animation.
-        // The basic CSS animation for .orbit itself is sufficient for simple rotation.
+        // Hamburger menu functionality
+        const hamburgerMenu = document.getElementById('hamburger-menu');
+        const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-        // Skills section animation on scroll (from your original code)
+        hamburgerMenu.addEventListener('click', () => {
+            hamburgerMenu.classList.toggle('open');
+            mobileNavOverlay.classList.toggle('open');
+            document.body.classList.toggle('no-scroll'); // Optional: prevent body scroll when menu is open
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgerMenu.classList.remove('open');
+                mobileNavOverlay.classList.remove('open');
+                document.body.classList.remove('no-scroll');
+            });
+        });
+
+        // Skills section animation on scroll
         const skillsSection = document.querySelector('.skills-section');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1104,58 +1266,114 @@
             });
         }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
 
-        observer.observe(skillsSection);
+        if (skillsSection) {
+            observer.observe(skillsSection);
+        }
 
-        // Scroll arrows functionality (New)
-        const scrollToTopBtn = document.getElementById('scroll-to-top');
-        const scrollToBottomBtn = document.getElementById('scroll-to-bottom');
+        // Section-by-section scroll arrows functionality
+        const sections = Array.from(document.querySelectorAll('section[id]'));
+        let currentSectionIndex = 0;
+        let isScrollingProgrammatically = false; // Flag to indicate programmatic scroll
 
-        window.addEventListener('scroll', () => {
-            // Show "scroll to top" after scrolling down a bit
-            if (window.scrollY > 200) {
-                scrollToTopBtn.classList.add('visible');
-            } else {
-                scrollToTopBtn.classList.remove('visible');
+        const observerOptions = {
+            root: null, // viewport
+            rootMargin: '0px',
+            threshold: 0.5 // Trigger when 50% of the section is visible
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            if (isScrollingProgrammatically) return; // Ignore observer updates during programmatic scroll
+
+            let visibleSection = null;
+            let maxRatio = 0;
+
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.intersectionRatio > maxRatio) {
+                        maxRatio = entry.intersectionRatio;
+                        visibleSection = entry.target;
+                    }
+                }
+            });
+
+            if (visibleSection) {
+                currentSectionIndex = sections.findIndex(sec => sec.id === visibleSection.id);
+                updateScrollArrowVisibility();
+            }
+        }, observerOptions);
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        const scrollToPrevBtn = document.getElementById('scroll-to-prev-section');
+        const scrollToNextBtn = document.getElementById('scroll-to-next-section');
+
+        function updateScrollArrowVisibility() {
+            // Hide both by default and show based on conditions
+            scrollToPrevBtn.classList.remove('visible');
+            scrollToNextBtn.classList.remove('visible');
+
+            if (currentSectionIndex > 0) {
+                scrollToPrevBtn.classList.add('visible');
             }
 
-            // Show "scroll to bottom" until near the end of the page
-            // Adjust '200' based on how close to the bottom you want it to disappear
-            if ((window.innerHeight + window.scrollY) < document.body.offsetHeight - 200) {
-                scrollToBottomBtn.classList.add('visible');
-            } else {
-                scrollToBottomBtn.classList.remove('visible');
+            if (currentSectionIndex < sections.length - 1) {
+                scrollToNextBtn.classList.add('visible');
+            }
+        }
+
+        function scrollToSection(index) {
+            if (index >= 0 && index < sections.length) {
+                isScrollingProgrammatically = true;
+                sections[index].scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Wait for the scroll to finish, then reset flag
+                setTimeout(() => {
+                    isScrollingProgrammatically = false;
+                    currentSectionIndex = index; // Ensure currentSectionIndex is the target index
+                    updateScrollArrowVisibility();
+                }, 800); // Give it some time for smooth scroll to complete
+            }
+        }
+
+        scrollToPrevBtn.addEventListener('click', () => {
+            if (currentSectionIndex > 0) {
+                scrollToSection(currentSectionIndex - 1);
             }
         });
 
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        scrollToBottomBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'smooth'
-            });
+        scrollToNextBtn.addEventListener('click', () => {
+            if (currentSectionIndex < sections.length - 1) {
+                scrollToSection(currentSectionIndex + 1);
+            }
         });
 
         // Initial check for scroll arrows visibility on page load
-        window.dispatchEvent(new Event('scroll'));
+        window.addEventListener('load', () => {
+            const firstVisibleSection = sections.find(sec => {
+                const rect = sec.getBoundingClientRect();
+                return rect.top >= 0 && rect.top < window.innerHeight;
+            }) || sections[0];
+            currentSectionIndex = sections.findIndex(sec => sec.id === firstVisibleSection.id);
+            updateScrollArrowVisibility();
+        });
 
         // Optional: Hide the initial scroll-indicator after first scroll or a few seconds
         const heroScrollIndicator = document.querySelector('.scroll-indicator');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) { // Disappear after scrolling down 50px
-                heroScrollIndicator.style.opacity = '0';
-                heroScrollIndicator.style.pointerEvents = 'none';
-            } else {
-                heroScrollIndicator.style.opacity = '1';
-                heroScrollIndicator.style.pointerEvents = 'auto';
-            }
-        });
-
+        if (heroScrollIndicator) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) { // Disappear after scrolling down 50px
+                    heroScrollIndicator.style.opacity = '0';
+                    heroScrollIndicator.style.pointerEvents = 'none';
+                } else {
+                    heroScrollIndicator.style.opacity = '1';
+                    heroScrollIndicator.style.pointerEvents = 'auto';
+                }
+            });
+        }
     </script>
 </body>
 </html>
