@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Omitogun Emmanuel - Data Analyst</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Emmanuel Omitogun – Data Analyst Portfolio showcasing projects in Power BI, SQL, and Excel.">
+    <meta property="og:title" content="Emmanuel Omitogun | Data Analyst">
+    <meta property="og:image" content="Images/project_1.jpg"> <link rel="icon" href="favicon.ico" type="image/x-icon"> <style>
         /* General Reset & Body Styles */
         * {
             margin: 0;
@@ -14,7 +17,7 @@
         }
 
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif; /* Changed font to Inter */
             line-height: 1.7;
             color: #1a1a1a;
             background: #0a0a0a;
@@ -53,7 +56,18 @@
             z-index: 1000;
             display: flex;
             gap: 30px;
+            transition: top 0.3s ease, background 0.3s ease, padding 0.3s ease; /* For sticky effect */
         }
+
+        .nav.sticky {
+            top: 0;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 40px;
+            width: 100%;
+            justify-content: flex-end;
+            box-shadow: 0 2px 10px rgba(0, 255, 136, 0.1);
+        }
+
 
         .nav a {
             color: #ffffff;
@@ -86,7 +100,7 @@
             display: none; /* Hidden by default, shown on mobile via media query */
             position: fixed;
             top: 30px;
-            right: 20px;
+            left: 20px; /* Positioned to the left */
             width: 40px;
             height: 40px;
             background: #00ff88;
@@ -123,40 +137,44 @@
 
         /* Mobile Navigation Overlay */
         .mobile-nav-overlay {
-            display: none; /* Hidden by default */
+            display: flex; /* Always flex so transition works */
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 70%; /* Adjust width for side view */
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.98); /* Slightly darker background */
             z-index: 1000;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
+            padding: 80px 30px 30px; /* Add padding for content */
+            transform: translateX(-100%); /* Start off-screen to the left */
+            visibility: hidden; /* Hide content from screen readers when off-screen */
+            transition: transform 0.4s ease-out, visibility 0.4s ease;
+            box-shadow: 2px 0 15px rgba(0, 255, 136, 0.2);
+            justify-content: flex-start; /* Align content to the top */
+            align-items: flex-start; /* Align content to the left */
         }
 
         .mobile-nav-overlay.open {
-            display: flex;
-            opacity: 1;
+            transform: translateX(0); /* Slide in */
             visibility: visible;
         }
 
         .mobile-nav-overlay a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 2rem;
+            font-size: 1.8rem; /* Slightly smaller for side menu */
             padding: 15px 0;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
             text-transform: uppercase;
             font-weight: 600;
+            width: 100%; /* Ensure links take full width for click area */
+            text-align: left;
         }
 
         .mobile-nav-overlay a:hover {
             color: #00ff88;
+            transform: translateX(10px); /* Slight slide effect on hover */
         }
 
         /* Hero Section */
@@ -166,6 +184,7 @@
             align-items: center;
             position: relative;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            padding-top: 50px; /* Added padding to top for general spacing */
         }
 
         .hero-grid {
@@ -200,7 +219,7 @@
             font-weight: 300;
         }
 
-        .hero-content .description {
+        .hero-content .professional-summary { /* New style for professional summary */
             font-size: 1.1rem;
             color: #808080;
             margin-bottom: 40px;
@@ -336,6 +355,11 @@
         .section {
             padding: 120px 0;
             position: relative;
+            /* Increased spacing between sections */
+            margin-bottom: 50px;
+        }
+        .section:last-of-type {
+            margin-bottom: 0;
         }
 
         .section-title {
@@ -366,7 +390,7 @@
             padding: 0 40px;
         }
 
-        .skill-card {
+        .skill-category { /* New style for skill categories */
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
@@ -375,15 +399,19 @@
             transition: all 0.4s ease;
             position: relative;
             backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
         }
 
-        .skill-card:hover {
-            transform: translateY(-10px);
+        .skill-category:hover {
+            transform: scale(1.03); /* Zoom out effect */
             border-color: #00ff88;
             box-shadow: 0 20px 60px rgba(0, 255, 136, 0.1);
         }
 
-        .skill-card::before {
+        .skill-category::before {
             content: '';
             position: absolute;
             top: 0;
@@ -395,35 +423,37 @@
             transition: opacity 0.4s ease;
         }
 
-        .skill-card:hover::before {
+        .skill-category:hover::before {
             opacity: 1;
         }
 
-        .skill-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #00ff88, #00d4aa);
-            border-radius: 20px;
+        .skill-category h3 {
+            font-size: 1.6rem; /* Larger heading for categories */
+            color: #00ff88; /* Accent color for category title */
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .skill-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            color: #0a0a0a;
-            margin: 0 auto 25px;
-        }
-
-        .skill-card h3 {
-            font-size: 1.4rem;
-            color: #ffffff;
+            gap: 10px;
             margin-bottom: 15px;
-            font-weight: 500;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 400;
         }
 
-        .skill-card p {
-            color: #a0a0a0;
-            font-size: 0.95rem;
-            line-height: 1.6;
+        .skill-item:last-child {
+            margin-bottom: 0;
         }
+
+        .skill-item i {
+            color: #00ff88; /* Icon color */
+            font-size: 1.2rem;
+        }
+
 
         /* Projects Section */
         .projects-section {
@@ -451,7 +481,7 @@
         }
 
         .project-card:hover {
-            transform: translateY(-15px);
+            transform: scale(1.03); /* Applied zoom out to card as a whole */
             box-shadow: 0 30px 80px rgba(0, 255, 136, 0.1);
             border-color: rgba(0, 255, 136, 0.3);
         }
@@ -473,6 +503,11 @@
             height: 100%;
             object-fit: cover; /* Ensures image covers the area, cropping if necessary */
             display: block; /* Removes extra space below image */
+            transition: transform 0.3s ease; /* For hover zoom */
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05); /* Zoom effect on hover */
         }
 
 
@@ -481,15 +516,23 @@
         }
 
         .project-content h3 {
-            font-size: 1.6rem;
+            font-size: 1.8rem; /* Larger and bolder for titles */
             color: #ffffff;
             margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .project-content .project-description-heading {
             font-weight: 500;
+            color: #00ff88;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
         }
 
         .project-content p {
             color: #a0a0a0;
-            margin-bottom: 25px;
+            margin-bottom: 15px; /* Adjusted margin */
             line-height: 1.7;
         }
 
@@ -497,6 +540,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            margin-top: 20px; /* Added margin for separation */
             margin-bottom: 25px;
         }
 
@@ -512,20 +556,27 @@
         .project-links {
             display: flex;
             gap: 20px;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            margin-top: 25px;
         }
 
         .project-link {
             color: #ffffff;
             text-decoration: none;
             font-weight: 500;
-            display: flex;
+            display: inline-flex; /* Use inline-flex for buttons */
             align-items: center;
             gap: 8px;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            padding: 10px 20px; /* Make them look like buttons */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
         }
 
         .project-link:hover {
-            color: #00ff88;
+            color: #0a0a0a;
+            background: #00ff88;
+            border-color: #00ff88;
         }
 
         /* Experience Section */
@@ -570,6 +621,13 @@
             padding: 30px;
             position: relative;
             backdrop-filter: blur(20px);
+            transition: all 0.4s ease; /* Added transition */
+        }
+
+        .timeline-content:hover { /* Hover effect for timeline content */
+            transform: scale(1.02); /* Slight zoom out */
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.1);
+            border-color: #00ff88;
         }
 
         .timeline-item:nth-child(even) .timeline-content {
@@ -611,18 +669,6 @@
             line-height: 1.6;
         }
 
-        /* Resume Section (New) */
-        .resume-section {
-            background: #0a0a0a;
-            text-align: center;
-            padding: 120px 0;
-        }
-
-        .resume-section .btn {
-            margin-top: 40px;
-        }
-
-
         /* Contact Section */
         .contact-section {
             background: #0f0f0f; /* Changed from #0a0a0a for visual separation */
@@ -646,10 +692,15 @@
             padding: 30px 20px;
             transition: all 0.4s ease;
             backdrop-filter: blur(20px);
+            display: flex; /* Use flexbox for vertical alignment */
+            flex-direction: column; /* Stack children vertically */
+            align-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically */
+            min-height: 120px; /* Ensure consistent height for items */
         }
 
         .contact-item:hover {
-            transform: translateY(-5px);
+            transform: scale(1.05); /* Applied zoom out to contact item */
             border-color: #00ff88;
             box-shadow: 0 15px 40px rgba(0, 255, 136, 0.1);
         }
@@ -664,25 +715,27 @@
             justify-content: center;
             font-size: 24px;
             color: #0a0a0a;
-            margin: 0 auto 15px;
+            margin: 0 auto; /* Center the icon */
+            /* Removed bottom margin, as link will wrap it */
         }
-
-        .contact-item h4 {
-            color: #ffffff;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .contact-item a {
-            color: #a0a0a0;
+        /* Style for the links/spans that wrap the icons */
+        .contact-item a,
+        .contact-item span {
+            color: #a0a0a0; /* Keeping a default color for consistency if needed */
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.9rem; /* Keep this for accessibility if text is ever re-added or for screen readers */
             transition: color 0.3s ease;
+            display: flex; /* Make it a flex container to center the icon */
+            justify-content: center; /* Center the icon horizontally */
+            align-items: center; /* Center the icon vertically */
+            width: 100%; /* Ensure the link/span takes full width */
+            height: 100%; /* Ensure the link/span takes full height of the item */
         }
-
-        .contact-item a:hover {
-            color: #00ff88;
+        .contact-item a:hover .contact-icon,
+        .contact-item span:hover .contact-icon {
+            background: #00ff88; /* Change icon background on hover */
+            color: #0a0a0a; /* Ensure icon color stays dark on hover */
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5); /* Add glow on hover */
         }
 
         .footer-text {
@@ -745,6 +798,17 @@
             .skills-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            .skill-category {
+                padding: 30px 20px; /* Adjust padding for categories */
+            }
+            .skill-category h3 {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+            }
+            .skill-item {
+                font-size: 1rem;
+            }
+
 
             .projects-grid {
                 grid-template-columns: 1fr;
@@ -885,7 +949,7 @@
                 font-size: 1.2rem;
             }
 
-            .hero-content .description {
+            .hero-content .professional-summary { /* Changed from .description */
                 font-size: 1rem;
             }
 
@@ -893,7 +957,7 @@
                 font-size: 2rem;
             }
 
-            .skill-card {
+            .skill-category { /* Changed from skill-card */
                 padding: 30px 20px;
             }
 
@@ -947,12 +1011,11 @@
 <body>
     <div class="noise-bg"></div>
 
-    <nav class="nav">
+    <nav class="nav" id="main-nav">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
-        <a href="#resume">Resume</a>
         <a href="#contact">Contact</a>
     </nav>
 
@@ -967,7 +1030,6 @@
         <a href="#skills" class="mobile-nav-link">Skills</a>
         <a href="#projects" class="mobile-nav-link">Projects</a>
         <a href="#experience" class="mobile-nav-link">Experience</a>
-        <a href="#resume" class="mobile-nav-link">Resume</a>
         <a href="#contact" class="mobile-nav-link">Contact</a>
     </div>
 
@@ -977,10 +1039,9 @@
                 <div class="hero-content">
                     <h1>Emmanuel <span class="highlight">Omitogun</span></h1>
                     <p class="subtitle">Data Analyst & Business Intelligence Specialist</p>
-                    <p class="description">
-                        Transforming raw data into actionable business insights through statistical analysis,
-                        visualization, and reporting. Specialized in SQL, Python, and dashboard creation
-                        with 4+ years of experience across retail and e-commerce industries.
+                    <p class="professional-summary">
+                        I'm a data analyst passionate about solving real-world problems using Power BI, Excel, SQL, and storytelling.
+                        My projects focus on business performance, customer behavior, and strategic insights.
                     </p>
                     <div class="cta-buttons">
                         <a href="#contact" class="btn btn-primary">
@@ -990,6 +1051,10 @@
                         <a href="#projects" class="btn btn-secondary">
                             <i class="fas fa-chart-bar"></i>
                             View Projects
+                        </a>
+                        <a href="Images/resume_sample.pdf" class="btn btn-secondary" target="_blank">
+                            <i class="fas fa-download"></i>
+                            Download Resume
                         </a>
                     </div>
                 </div>
@@ -1012,53 +1077,35 @@
             </div>
         </section>
 
+        <div class="section-divider"></div>
+
         <section class="section skills-section" id="skills">
             <h2 class="section-title">Core <span class="accent">Skills</span></h2>
             <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>SQL & Database Management</h3>
-                    <p>Advanced SQL queries, database optimization, data warehousing, and working with MySQL, PostgreSQL, and SQL Server.</p>
+                <div class="skill-category">
+                    <h3>Analytics & BI</h3>
+                    <div class="skill-item"><i class="fas fa-chart-pie"></i> Data Visualization</div>
+                    <div class="skill-item"><i class="fas fa-business-time"></i> Business Intelligence</div>
+                    <div class="skill-item"><i class="fas fa-calculator"></i> Statistical Analysis</div>
+                    <div class="skill-item"><i class="fas fa-file-excel"></i> Excel & Spreadsheets</div>
                 </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-python"></i>
-                    </div>
-                    <h3>Python Analytics</h3>
-                    <p>Data analysis with pandas, NumPy, statistical modeling with scipy, and automation scripts for data processing workflows.</p>
+                <div class="skill-category">
+                    <h3>Programming & Databases</h3>
+                    <div class="skill-item"><i class="fab fa-python"></i> Python (Pandas, NumPy, SciPy)</div>
+                    <div class="skill-item"><i class="fas fa-database"></i> SQL (MySQL, PostgreSQL, SQL Server)</div>
+                    <div class="skill-item"><i class="fas fa-warehouse"></i> Data Warehousing</div>
                 </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <h3>Data Visualization</h3>
-                    <p>Creating compelling dashboards and reports using Tableau, Power BI, and Python libraries like matplotlib and seaborn.</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <h3>Statistical Analysis</h3>
-                    <p>Descriptive statistics, hypothesis testing, regression analysis, and A/B testing for data-driven decision making.</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-file-excel"></i>
-                    </div>
-                    <h3>Excel & Spreadsheets</h3>
-                    <p>Advanced Excel functions, pivot tables, VBA macros, and Google Sheets for data analysis and business reporting.</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-business-time"></i>
-                    </div>
-                    <h3>Business Intelligence</h3>
-                    <p>KPI development, performance metrics, business reporting, and translating data insights into strategic recommendations.</p>
+                <div class="skill-category">
+                    <h3>Tools & Platforms</h3>
+                    <div class="skill-item"><i class="fas fa-table"></i> Power BI</div>
+                    <div class="skill-item"><i class="fas fa-table"></i> Tableau</div>
+                    <div class="skill-item"><i class="fab fa-github"></i> Git/GitHub</div>
+                    <div class="skill-item"><i class="fas fa-cloud"></i> Google Cloud (basics)</div>
                 </div>
             </div>
         </section>
+
+        <div class="section-divider"></div>
 
         <section class="section projects-section" id="projects">
             <h2 class="section-title">Featured <span class="accent">Projects</span></h2>
@@ -1068,20 +1115,23 @@
                         <img src="Images/project_1.jpg" alt="Insurance Campaign Thumbnail"> </div>
                     <div class="project-content">
                         <h3>Insurance Campaign Performance Optimization</h3>
-                        <p>Despite making 45,211 outbound calls, the insurer achieved only an 11.7% conversion rate, with 23.63 calls required per successful sale. I tackled the key challenges of unclear customer segmentation, high cost per sale, and inefficient targeting strategies. Through comprehensive data analysis, I uncovered insights about the most responsive customers, optimal channels and timing for highest ROI, and strategies to optimize conversion without increasing call volume.</p>
+                        <p class="project-description-heading">Problem Solved:</p>
+                        <p>Despite making 45,211 outbound calls, the insurer achieved only an 11.7% conversion rate, with 23.63 calls required per successful sale. Key challenges included unclear customer segmentation, high cost per sale, and inefficient targeting strategies.</p>
+                        <p class="project-description-heading">Key Insight:</p>
+                        <p>Through comprehensive data analysis, I uncovered insights about the most responsive customers, optimal channels and timing for highest ROI, and strategies to optimize conversion without increasing call volume, leading to improved efficiency and reduced costs.</p>
                         <div class="tech-stack">
-                            <span class="tech-tag">Power Bi</span>
+                            <span class="tech-tag">Power BI</span>
                             <span class="tech-tag">SQL</span>
                             <span class="tech-tag">Python</span>
                             <span class="tech-tag">Excel</span>
                             <span class="tech-tag">DAX</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/Elohim00/Insurance-Campaign-Performance.git" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Full project
+                            <a href="https://github.com/Elohim00/Insurance-Campaign-Performance.git" class="project-link" target="_blank">
+                                <i class="fas fa-code"></i> Full Project
                             </a>
-                            <a href="https://www.datascienceportfol.io/Emmanuel00/projects/4" class="project-link">
-                                <i class="fas fa-file-pdf"></i> Case Study
+                            <a href="https://www.datascienceportfol.io/Emmanuel00/projects/4" class="project-link" target="_blank">
+                                <i class="fas fa-book-open"></i> Case Study
                             </a>
                         </div>
                     </div>
@@ -1092,19 +1142,22 @@
                          <img src="Images/project_3.png" alt="Customer Segmentation Analysis Thumbnail"> </div>
                     <div class="project-content">
                         <h3>Customer Segmentation Analysis</h3>
-                        <p>Performed RFM analysis and clustering to identify customer segments, enabling targeted marketing campaigns that improved retention by 25%.</p>
+                        <p class="project-description-heading">Problem Solved:</p>
+                        <p>Businesses often struggle with generic marketing efforts, leading to low engagement and retention. This project aimed to identify distinct customer groups for targeted strategies.</p>
+                        <p class="project-description-heading">Key Insight:</p>
+                        <p>Performed RFM (Recency, Frequency, Monetary) analysis and K-means clustering to segment customers. This enabled targeted marketing campaigns that improved customer retention by 25% by tailoring promotions to specific segments.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">Python</span>
-                            <span class="tech-tag">K-means</span>
+                            <span class="tech-tag">K-means Clustering</span>
                             <span class="tech-tag">Pandas</span>
                             <span class="tech-tag">Seaborn</span>
-                            <span class="tech-tag">Jupyter</span>
+                            <span class="tech-tag">Jupyter Notebook</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link">
+                            <a href="#" class="project-link" target="_blank">
                                 <i class="fab fa-github"></i> Source Code
                             </a>
-                            <a href="#" class="project-link">
+                            <a href="#" class="project-link" target="_blank">
                                 <i class="fas fa-chart-bar"></i> Visualization
                             </a>
                         </div>
@@ -1116,7 +1169,10 @@
                             <img src="Images/project_2.png" alt="Supply Chain Efficiency Dashboard Thumbnail"> </div>
                     <div class="project-content">
                         <h3>Supply Chain Efficiency Dashboard</h3>
-                        <p>Analyzed inventory turnover and demand patterns, created automated reporting system that reduced excess inventory by 30% and stockouts by 20%.</p>
+                        <p class="project-description-heading">Problem Solved:</p>
+                        <p>Inefficient inventory management and unpredictable demand patterns led to significant excess inventory and frequent stockouts, impacting profitability and customer satisfaction.</p>
+                        <p class="project-description-heading">Key Insight:</p>
+                        <p>Analyzed inventory turnover and demand patterns, then developed an automated reporting system. This solution reduced excess inventory by 30% and stockouts by 20%, optimizing supply chain operations.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">SQL</span>
                             <span class="tech-tag">Power BI</span>
@@ -1125,10 +1181,10 @@
                             <span class="tech-tag">PostgreSQL</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link">
+                            <a href="#" class="project-link" target="_blank">
                                 <i class="fas fa-play"></i> Demo Video
                             </a>
-                            <a href="#" class="project-link">
+                            <a href="#" class="project-link" target="_blank">
                                 <i class="fas fa-download"></i> Template
                             </a>
                         </div>
@@ -1137,10 +1193,13 @@
 
                 <div class="project-card">
                     <div class="project-image">
-                         <img src="Images/marketing.jpg" alt="Supply Chain Efficiency Dashboard Thumbnail"> </div>
+                         <img src="Images/marketing.jpg" alt="Marketing Campaign Performance Dashboard Thumbnail"> </div>
                     <div class="project-content">
                         <h3>Marketing Campaign Performance Tracker</h3>
-                        <p>Developed automated reporting system to track marketing ROI across channels, providing insights that increased campaign efficiency by 40%.</p>
+                        <p class="project-description-heading">Problem Solved:</p>
+                        <p>Lack of a centralized system to track marketing campaign performance across various channels made it difficult to assess ROI and optimize future spending.</p>
+                        <p class="project-description-heading">Key Insight:</p>
+                        <p>Developed an automated reporting system to track marketing ROI across channels using Google Analytics API. This provided real-time insights that increased overall campaign efficiency by 40%.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">Google Analytics</span>
                             <span class="tech-tag">Python</span>
@@ -1149,10 +1208,10 @@
                             <span class="tech-tag">Excel</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link">
+                            <a href="#" class="project-link" target="_blank">
                                 <i class="fas fa-link"></i> Dashboard
                             </a>
-                            <a href="#" class="project-link">
+                            <a href="#" class="project-link" target="_blank">
                                 <i class="fas fa-blog"></i> Blog Post
                             </a>
                         </div>
@@ -1161,17 +1220,18 @@
             </div>
         </section>
 
+        <div class="section-divider"></div>
+
         <section class="section experience-section" id="experience">
             <h2 class="section-title">Professional <span class="accent">Journey</span></h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <div class="timeline-date"> Present</div>
+                        <div class="timeline-date">Present</div>
                         <h3 class="timeline-title">Data Analyst - Freelance</h3>
                         <p class="timeline-description">
                             Data Analyst & BI Expert transforming complex data into clear, actionable insights with SQL, Python, and Power BI.
 							I help businesses drive smarter decisions through impactful dashboards and precision analytics.
-
                         </p>
                     </div>
                     <div class="timeline-dot"></div>
@@ -1184,7 +1244,6 @@
                         <p class="timeline-description">
                            Customer Support & Data Analyst at Naija Beauty Hair, blending service excellence with insight-driven decisions.
 						   Turning customer interactions and sales data into strategies that enhance experience and drive growth.
-
                         </p>
                     </div>
                     <div class="timeline-dot"></div>
@@ -1216,19 +1275,7 @@
             </div>
         </section>
 
-        <section class="section resume-section" id="resume">
-            <h2 class="section-title">My <span class="accent">Resume</span></h2>
-            <p style="color: #a0a0a0; font-size: 1.1rem; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
-                View my full resume directly in your browser or download it.
-            </p>
-            <a href="Images/resume_sample.pdf" class="btn btn-primary" target="_blank">
-                <i class="fas fa-file-pdf"></i> View Resume
-            </a>
-
-            <p style="color: #a0a0a0; font-size: 0.9rem; margin-top: 20px;">
-                (If "View Resume" doesn't open in a new tab, right-click and 'Open link in new tab'.)
-            </p>
-        </section>
+        <div class="section-divider"></div>
 
         <section class="section contact-section" id="contact">
             <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
@@ -1237,32 +1284,32 @@
             </p>
             <div class="contact-grid">
                 <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h4>Email</h4>
-                    <a href="mailto:blessedemmy00@gmail.com">Blessed</a>
+                    <a href="mailto:blessedemmy00@gmail.com" aria-label="Email me">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </a>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fab fa-linkedin"></i>
-                    </div>
-                    <h4>LinkedIn</h4>
-                    <a href="https://www.linkedin.com/in/emmanuel-inioluwa-b68820263" target="_blank">Emmanuel</a>
+                    <a href="https://www.linkedin.com/in/emmanuel-inioluwa-b68820263" target="_blank" aria-label="Visit my LinkedIn profile">
+                        <div class="contact-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                    </a>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <h4>Phone</h4>
-                    <a href="tel:+2348162918984">+234 (816)209-18984 </a>
+                    <a href="tel:+2348162918984" aria-label="Call me">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                    </a>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h4>Location</h4>
-                    <span>Lagos, Nigeria</span>
+                    <span aria-label="My location">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                    </span>
                 </div>
             </div>
             <p class="footer-text">
@@ -1308,16 +1355,17 @@
             });
         });
 
-        // Skills section animation on scroll
+        // Skills section animation on scroll (keeping original for skill-card now skill-category)
         const skillsSection = document.querySelector('.skills-section');
+        const skillCategoryCards = document.querySelectorAll('.skill-category'); // Updated selector
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.querySelectorAll('.skill-card').forEach((card, index) => {
+                    skillCategoryCards.forEach((card, index) => { // Updated loop
                         card.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s forwards`;
                     });
                 } else {
-                    entry.target.querySelectorAll('.skill-card').forEach((card) => {
+                    skillCategoryCards.forEach((card) => { // Updated loop
                         card.style.animation = 'none'; // Reset animation when out of view
                     });
                 }
@@ -1409,6 +1457,25 @@
             }
         });
 
+        // Sticky navigation bar
+        const mainNav = document.getElementById('main-nav');
+        const heroSection = document.querySelector('.hero');
+        let navHeight = mainNav.offsetHeight;
+
+        function checkStickyNav() {
+            if (window.scrollY > heroSection.offsetHeight - navHeight) { // Adjust threshold as needed
+                mainNav.classList.add('sticky');
+            } else {
+                mainNav.classList.remove('sticky');
+            }
+        }
+        window.addEventListener('scroll', checkStickyNav);
+        window.addEventListener('resize', () => {
+            navHeight = mainNav.offsetHeight; // Recalculate nav height on resize
+            checkStickyNav();
+        });
+
+
         // Initial check for scroll arrows visibility on page load
         window.addEventListener('load', () => {
             const firstVisibleSection = sections.find(sec => {
@@ -1417,6 +1484,7 @@
             }) || sections[0];
             currentSectionIndex = sections.findIndex(sec => sec.id === firstVisibleSection.id);
             updateScrollArrowVisibility();
+            checkStickyNav(); // Initial check for sticky nav on load
         });
 
         // Optional: Hide the initial scroll-indicator after first scroll or a few seconds
