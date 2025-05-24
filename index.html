@@ -3,788 +3,880 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omitogun Emmanuel - Data Analyst/Strategist</title>
+    <title>Omitogun Emmanuel - Data Analyst</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #0F172A;
-            --secondary-color: #1E293B;
-            --accent-color: #3B82F6;
-            --accent-secondary: #10B981;
-            --text-primary: #F8FAFC;
-            --text-secondary: #CBD5E1;
-            --text-muted: #94A3B8;
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-accent: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
-            --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.15);
-            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.25);
-        }
-
+        /* General Reset & Body Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--primary-color);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #0a0a0a;
             overflow-x: hidden;
+            position: relative; /* Needed for scroll arrows positioning */
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Navigation */
-        nav {
+        /* Noise Background Effect */
+        .noise-bg {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
+            height: 100%;
+            opacity: 0.03;
+            background-image:
+                radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0);
+            background-size: 20px 20px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navigation Bar */
+        .nav {
+            position: fixed;
+            top: 30px;
+            right: 40px;
             z-index: 1000;
-            padding: 15px 0;
-            transition: all 0.3s ease;
-        }
-
-        nav.scrolled {
-            background: rgba(15, 23, 42, 0.98);
-            box-shadow: var(--shadow-soft);
-        }
-
-        .nav-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 30px;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
+        .nav a {
+            color: #ffffff;
             text-decoration: none;
-            transition: color 0.3s ease;
             font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--accent-color);
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #00ff88;
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
         }
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             position: relative;
-            background: url('https://via.placeholder.com/1920x1080/0F172A/3B82F6?text=Data+Analytics+Background') no-repeat center center/cover; /* Data analytics related image */
-            overflow: hidden;
-            background-blend-mode: multiply; /* Blends the image with the gradient primary */
-            background-color: var(--primary-color); /* Fallback color for blending */
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
         }
 
-        .hero::before {
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 6vw, 7rem);
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 20px;
+            line-height: 0.9;
+        }
+
+        .hero-content .highlight {
+            color: #00ff88;
+            font-weight: 600;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.4rem;
+            color: #a0a0a0;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .hero-content .description {
+            font-size: 1.1rem;
+            color: #808080;
+            margin-bottom: 40px;
+            max-width: 500px;
+            line-height: 1.8;
+        }
+
+        .hero-image {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00ff88, #00d4aa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: #0a0a0a;
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 30px 80px rgba(0, 255, 136, 0.3);
+            /* If you want to use an image directly as background for the circle */
+            /* background-image: url('path/to/your/profile-image.jpg'); */
+            /* background-size: cover; */
+            /* background-position: center; */
+            /* text-indent: -9999px; /* Hide icon if image is used */
+        }
+
+        .profile-pic img { /* Style for an <img> tag inside .profile-pic */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .orbit {
+            position: absolute;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+
+        .orbit-1 {
+            width: 400px;
+            height: 400px;
+            top: -25px;
+            left: -25px;
+        }
+
+        .orbit-2 {
+            width: 480px;
+            height: 480px;
+            top: -65px;
+            left: -65px;
+            animation-duration: 30s;
+            animation-direction: reverse;
+        }
+
+        .orbit-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #00ff88;
+            border-radius: 50%;
+            top: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px #00ff88;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 18px 35px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: #00ff88;
+            color: #0a0a0a;
+            border: 2px solid #00ff88;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: #00ff88;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background: #ffffff;
+            color: #0a0a0a;
+            transform: translateY(-2px);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 300;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .section-title .accent {
+            color: #00ff88;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            background: #0f0f0f;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(20px);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff88;
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.1);
+        }
+
+        .skill-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.7) 0%, rgba(118, 75, 162, 0.7) 100%); /* Overlay gradient */
-            opacity: 0.9; /* Adjust opacity of the gradient overlay */
-            z-index: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff88, transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
+        .skill-card:hover::before {
+            opacity: 1;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero .subtitle {
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .hero .tagline {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 3rem;
-            font-style: italic;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: var(--gradient-accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        /* Section Styles */
-        section {
-            padding: 100px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* About Section */
-        .about {
-            background: var(--secondary-color);
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 4rem;
-            align-items: center;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .about-text-section {
-            order: 1;
-        }
-
-        .about-text {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        .skills-highlight {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .skill-tag {
-            background: var(--gradient-accent);
-            padding: 8px 16px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--primary-color); /* Added to ensure text contrasts */
-        }
-
-        .about-image-section {
-            order: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .portrait-image {
-            width: 300px; /* Increased width */
-            height: 400px; /* Increased height, maintaining aspect ratio for portrait */
+        .skill-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #00ff88, #00d4aa);
             border-radius: 20px;
-            box-shadow: var(--shadow-hover);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            background: var(--gradient-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            text-align: center;
-            padding: 2rem;
-            border: 3px solid rgba(59, 130, 246, 0.3);
+            font-size: 32px;
+            color: #0a0a0a;
+            margin: 0 auto 25px;
         }
 
-        .portrait-image:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(59, 130, 246, 0.2);
+        .skill-card h3 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 500;
         }
 
-        .portrait-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 17px;
-        }
-
-        .image-placeholder {
-            text-align: center;
+        .skill-card p {
+            color: #a0a0a0;
+            font-size: 0.95rem;
             line-height: 1.6;
         }
 
-        .image-placeholder i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-            color: var(--accent-color);
+        /* Projects Section */
+        .projects-section {
+            background: #0a0a0a;
         }
 
-        /* Projects Section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .project-card {
-            background: var(--secondary-color);
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
             overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-soft);
+            transition: all 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(20px);
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-15px);
+            box-shadow: 0 30px 80px rgba(0, 255, 136, 0.1);
+            border-color: rgba(0, 255, 136, 0.3);
         }
 
         .project-image {
-            height: 200px;
-            background: var(--gradient-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--text-primary);
-            overflow: hidden; /* Ensure image doesn't overflow */
+            height: 250px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e); /* Fallback background if image is not set */
+            display: flex; /* For centering the icon if no image */
+            align-items: center; /* For centering the icon if no image */
+            justify-content: center; /* For centering the icon if no image */
+            font-size: 60px; /* For the icon if no image */
+            color: #00ff88; /* For the icon if no image */
+            position: relative;
+            overflow: hidden; /* Ensure image fits */
         }
 
         .project-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Cover the area, cropping if necessary */
+            object-fit: cover; /* Ensures image covers the area, cropping if necessary */
+            display: block; /* Removes extra space below image */
         }
+
 
         .project-content {
-            padding: 2rem;
+            padding: 35px;
         }
 
-        .project-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--accent-color);
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .project-tools {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .tool-tag {
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--accent-color);
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
+        .project-content h3 {
+            font-size: 1.6rem;
+            color: #ffffff;
+            margin-bottom: 15px;
             font-weight: 500;
         }
 
+        .project-content p {
+            color: #a0a0a0;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tech-tag {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 20px;
+        }
+
         .project-link {
-            color: var(--accent-secondary);
+            color: #ffffff;
             text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-            display: flex; /* Make links flexible for icon alignment */
+            font-weight: 500;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
+            transition: color 0.3s ease;
         }
 
         .project-link:hover {
-            color: var(--text-primary);
+            color: #00ff88;
         }
 
-        /* Skills Section */
-        .skills {
-            background: var(--secondary-color);
+        /* Experience Section */
+        .experience-section {
+            background: #0f0f0f;
         }
 
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .skill-category {
-            background: var(--primary-color);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .skill-category h3 {
-            color: var(--accent-color);
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-        }
-
-        .skill-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .skill-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-accent);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            color: white;
-        }
-
-        .skill-info {
-            flex: 1;
-        }
-
-        .skill-name {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary); /* Ensure skill names are visible */
-        }
-
-        .skill-bar {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: var(--gradient-accent);
-            border-radius: 3px;
-            transition: width 2s ease;
-        }
-
-        /* Resume Section */
-        .resume {
-            background: var(--primary-color); /* Consistent with other sections */
-            text-align: center;
-        }
-
-        .resume-content {
+        .timeline {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #00ff88, #00d4aa);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
         }
 
-        .resume-text {
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
         }
 
-        .resume-buttons {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
+        .timeline-content {
+            width: 45%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            backdrop-filter: blur(20px);
         }
 
-        .resume-button {
-            display: inline-flex; /* Use inline-flex for alignment with icon */
-            align-items: center;
-            gap: 10px;
-            padding: 16px 35px;
-            border-radius: 50px;
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: 10%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 10%;
+        }
+
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: #00ff88;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px #00ff88;
+        }
+
+        .timeline-date {
+            color: #00ff88;
             font-weight: 600;
-            font-size: 1.1rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-soft);
-            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
         }
 
-        .resume-button.download {
-            background: var(--gradient-accent);
-            color: white;
+        .timeline-title {
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 15px;
         }
 
-        .resume-button.download:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            filter: brightness(1.1);
+        .timeline-description {
+            color: #a0a0a0;
+            line-height: 1.6;
         }
 
-        .resume-button.view {
-            background: var(--secondary-color);
-            color: var(--accent-secondary);
-            border: 2px solid var(--accent-secondary);
+        /* Resume Section (New) */
+        .resume-section {
+            background: #0a0a0a;
+            text-align: center;
+            padding: 120px 0;
         }
 
-        .resume-button.view:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            background: var(--accent-secondary);
-            color: var(--primary-color);
+        .resume-section .btn {
+            margin-top: 40px;
         }
+
 
         /* Contact Section */
-        .contact {
+        .contact-section {
+            background: #0f0f0f; /* Changed from #0a0a0a for visual separation */
             text-align: center;
-            background: var(--secondary-color); /* Added background for consistency */
         }
 
-        .contact-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-form {
+        .contact-grid {
             display: grid;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto 50px;
         }
 
-        .form-group {
-            display: grid;
-            gap: 1rem;
+        .contact-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px 20px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(20px);
         }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        .contact-item:hover {
+            transform: translateY(-5px);
+            border-color: #00ff88;
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.1);
         }
 
-        .form-control {
-            background: var(--primary-color); /* Changed to primary-color for input background */
-            border: 2px solid transparent;
-            border-radius: 10px;
-            padding: 15px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
-
-        .form-control::placeholder {
-            color: var(--text-muted);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            background: var(--gradient-accent);
-            border: none;
-            border-radius: 50px;
-            padding: 15px 40px;
-            color: white;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .social-link {
+        .contact-icon {
             width: 60px;
             height: 60px;
-            background: var(--gradient-accent);
+            background: linear-gradient(135deg, #00ff88, #00d4aa);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #0a0a0a;
+            margin: 0 auto 15px;
+        }
+
+        .contact-item h4 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .contact-item a {
+            color: #a0a0a0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #00ff88;
+        }
+
+        .footer-text {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        /* Scroll Arrows */
+        .scroll-arrow {
+            position: fixed;
+            right: 40px;
+            bottom: 100px; /* Adjust for scroll-to-bottom */
+            background: rgba(0, 255, 136, 0.7);
+            color: #0a0a0a;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            text-decoration: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
             transition: all 0.3s ease;
-            box-shadow: var(--shadow-soft);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
         }
 
-        .social-link:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-            background: var(--accent-secondary); /* Added hover background */
+        .scroll-arrow:hover {
+            background: #00ff88;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.4);
         }
 
-        /* Footer */
-        footer {
-            background: var(--secondary-color);
-            padding: 2rem 0;
-            text-align: center;
-            color: var(--text-muted);
+        .scroll-arrow.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
+
+        #scroll-to-top {
+            bottom: 100px;
+        }
+
+        #scroll-to-bottom {
+            bottom: 30px;
+        }
+
 
         /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero .subtitle {
-                font-size: 1.2rem;
-            }
-
-            .about-content {
+        @media (max-width: 1024px) {
+            .hero-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 50px;
                 text-align: center;
             }
 
-            .about-text-section {
-                order: 2;
-            }
-
-            .about-image-section {
-                order: 1;
-            }
-
-            .portrait-image {
-                width: 250px;
-                height: 330px;
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .projects-grid {
                 grid-template-columns: 1fr;
             }
 
-            .skills-container {
-                grid-template-columns: 1fr;
+            .timeline::before {
+                left: 30px;
             }
 
-            .form-row {
-                grid-template-columns: 1fr;
+            .timeline-item {
+                flex-direction: row !important;
             }
 
-            .social-links {
-                gap: 1rem;
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+                margin-right: 0 !important;
             }
 
-            .resume-buttons {
-                flex-direction: column;
-                gap: 1rem;
+            .timeline-dot {
+                left: 30px;
+                transform: translateX(-50%);
             }
         }
 
-        /* Animation for skill bars */
-        .skill-progress[data-width="80"] { width: 80%; }
-        .skill-progress[data-width="70"] { width: 70%; } /* */
-        .skill-progress[data-width="75"] { width: 75%; } /* */
-        .skill-progress[data-width="85"] { width: 85%; } /* */
-        .skill-progress[data-width="90"] { width: 90%; } /* */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
 
-        /* Scroll to Top/Bottom Arrows */
-        .scroll-arrow {
+            .nav {
+                position: relative;
+                top: 20px;
+                right: 0;
+                justify-content: center;
+                margin-bottom: 40px;
+                gap: 15px; /* Adjust gap for smaller screens */
+                flex-wrap: wrap; /* Allow navigation items to wrap */
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .scroll-arrow {
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            #scroll-to-top {
+                bottom: 80px;
+            }
+            #scroll-to-bottom {
+                bottom: 20px;
+            }
+        }
+
+        .scroll-indicator {
             position: fixed;
-            right: 20px;
-            background: var(--accent-color);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            cursor: pointer;
-            box-shadow: var(--shadow-soft);
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 999;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffffff;
+            animation: bounce 2s infinite;
         }
 
-        .scroll-arrow:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
         }
 
-        .scroll-arrow.visible {
-            opacity: 1;
-            visibility: visible;
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00ff88, transparent);
+            margin: 60px 0;
+            opacity: 0.3;
         }
-
-        #scroll-to-top {
-            bottom: 80px;
-        }
-
-        #scroll-to-bottom {
-            bottom: 20px;
-        }
-
     </style>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="container">
-            <div class="nav-container">
-                <div class="logo">Omitogun Emmanuel</div>
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#resume">Resume</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-        </div>
+    <div class="noise-bg"></div>
+
+    <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#resume">Resume</a> <a href="#contact">Contact</a>
     </nav>
 
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Omitogun Emmanuel</h1>
-                <div class="subtitle">Data Analyst/Strategist</div>
-                <div class="tagline">"Transforming Raw Data into Strategic Gold"</div>
-                <a href="#projects" class="cta-button">View Projects</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text-section">
-                    <p class="about-text">
-                        I'm a passionate data analyst who believes that every dataset tells a story waiting to be discovered. With a keen eye for patterns and a love for problem-solving, I specialize in turning complex data challenges into clear, actionable insights that drive real business impact. My approach combines technical expertise with genuine curiosity about what the numbers are really saying.
+    <div class="container">
+        <section class="hero" id="about">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1>Emmanuel <span class="highlight">Omitogun</span></h1>
+                    <p class="subtitle">Data Analyst & Business Intelligence Specialist</p>
+                    <p class="description">
+                        Transforming raw data into actionable business insights through statistical analysis,
+                        visualization, and reporting. Specialized in SQL, Python, and dashboard creation
+                        with 4+ years of experience across retail and e-commerce industries.
                     </p>
-                    <p class="about-text">
-                        Whether it's uncovering hidden trends in customer behavior, optimizing marketing campaigns, or building predictive models that save companies thousands, I'm driven by the excitement of finding those "aha!" moments buried in the data. I believe great analysis isn't just about crunching numbers—it's about telling compelling stories that inspire confident decision-making.
-                    </p>
-                    <div class="skills-highlight">
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">Power BI</span>
-                        <span class="skill-tag">Excel</span>
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">DAX</span>
-                        <span class="skill-tag">Data Visualization</span>
-                        <span class="skill-tag">Statistical Analysis</span>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">
+                            <i class="fas fa-rocket"></i>
+                            Let's Connect
+                        </a>
+                        <a href="#projects" class="btn btn-secondary">
+                            <i class="fas fa-chart-bar"></i>
+                            View Projects
+                        </a>
                     </div>
                 </div>
-                <div class="about-image-section">
-                    <div class="portrait-image">
-                        <img src="https://via.placeholder.com/300x400/3B82F6/F8FAFC?text=Your+Portrait" alt="Omitogun Emmanuel">
+                <div class="hero-image">
+                    <div class="profile-container">
+                        <div class="profile-pic">
+                            <img src="Images/picture_2.jpg" alt="Omitogun Emmanuel">
+                        <div class="orbit orbit-1">
+                            <div class="orbit-dot"></div>
+                        </div>
+                        <div class="orbit orbit-2">
+                            <div class="orbit-dot"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
 
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
+        <section class="section skills-section" id="skills">
+            <h2 class="section-title">Core <span class="accent">Skills</span></h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>SQL & Database Management</h3>
+                    <p>Advanced SQL queries, database optimization, data warehousing, and working with MySQL, PostgreSQL, and SQL Server.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Python Analytics</h3>
+                    <p>Data analysis with pandas, NumPy, statistical modeling with scipy, and automation scripts for data processing workflows.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Data Visualization</h3>
+                    <p>Creating compelling dashboards and reports using Tableau, Power BI, and Python libraries like matplotlib and seaborn.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Statistical Analysis</h3>
+                    <p>Descriptive statistics, hypothesis testing, regression analysis, and A/B testing for data-driven decision making.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <h3>Excel & Spreadsheets</h3>
+                    <p>Advanced Excel functions, pivot tables, VBA macros, and Google Sheets for data analysis and business reporting.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-business-time"></i>
+                    </div>
+                    <h3>Business Intelligence</h3>
+                    <p>KPI development, performance metrics, business reporting, and translating data insights into strategic recommendations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section projects-section" id="projects">
+            <h2 class="section-title">Featured <span class="accent">Projects</span></h2>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x200/667eea/F8FAFC?text=Insurance+Campaign" alt="Insurance Campaign Performance Project Thumbnail">
-                    </div>
+                        <img src="Images/project_1.jpg" alt="Insurance Campaign Thumbnail"> </div>
                     <div class="project-content">
-                        <h3 class="project-title">Insurance Campaign Performance Optimization</h3>
-                        <p class="project-description">
-                            Despite making 45,211 outbound calls, the insurer achieved only an 11.7% conversion rate, with 23.63 calls required per successful sale. I tackled the key challenges of unclear customer segmentation, high cost per sale, and inefficient targeting strategies. Through comprehensive data analysis, I uncovered insights about the most responsive customers, optimal channels and timing for highest ROI, and strategies to optimize conversion without increasing call volume.
-                        </p>
-                        <div class="project-tools">
-                            <span class="tool-tag">Power BI</span>
-                            <span class="tool-tag">DAX</span>
-                            <span class="tool-tag">SQL</span>
-                            <span class="tool-tag">Excel</span>
+                        <h3>Insurance Campaign Performance Optimization</h3>
+                        <p>Despite making 45,211 outbound calls, the insurer achieved only an 11.7% conversion rate, with 23.63 calls required per successful sale. I tackled the key challenges of unclear customer segmentation, high cost per sale, and inefficient targeting strategies. Through comprehensive data analysis, I uncovered insights about the most responsive customers, optimal channels and timing for highest ROI, and strategies to optimize conversion without increasing call volume.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Power Bi</span>
+                            <span class="tech-tag">SQL</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Excel</span>
+                            <span class="tech-tag">DAX</span>
                         </div>
-                        <div class="project-links" style="display: flex; gap: 1rem; align-items: center;">
-                            <a href="https://github.com/Elohim00/Insurance-Campaign-Performance.git" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> View Project
+                        <div class="project-links">
+                            <a href="https://github.com/Elohim00/Insurance-Campaign-Performance.git" class="project-link">
+                                <i class="fas fa-external-link-alt"></i> Full project
                             </a>
-                            <a href="#" class="project-link" target="_blank" title="View Dashboard">
-                                <i class="fas fa-external-link-alt"></i> Live Dashboard
+                            <a href="https://www.datascienceportfol.io/Emmanuel00/projects/4" class="project-link">
+                                <i class="fas fa-file-pdf"></i> Case Study
                             </a>
                         </div>
                     </div>
@@ -792,25 +884,23 @@
 
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x200/10B981/F8FAFC?text=Project+Thumbnail+2" alt="Project 2 Thumbnail">
-                    </div>
+                         <img src="Images/project_3.png" alt="Customer Segmentation Analysis Thumbnail"> </div>
                     <div class="project-content">
-                        <h3 class="project-title">Sales Performance and Customer Satisfaction Analysis</h3>
-                        <p class="project-description">
-                            This project involved analyzing sales data alongside customer satisfaction surveys to identify correlations and drivers of both high sales and customer loyalty. I developed a comprehensive dashboard that allowed stakeholders to drill down into regional performance, product categories, and customer feedback, leading to actionable improvements in sales strategy and customer service initiatives.
-                        </p>
-                        <div class="project-tools">
-                            <span class="tool-tag">Python</span>
-                            <span class="tool-tag">Excel</span>
-                            <span class="tool-tag">SQL</span>
-                            <span class="tool-tag">Power BI</span>
+                        <h3>Customer Segmentation Analysis</h3>
+                        <p>Performed RFM analysis and clustering to identify customer segments, enabling targeted marketing campaigns that improved retention by 25%.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">K-means</span>
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">Seaborn</span>
+                            <span class="tech-tag">Jupyter</span>
                         </div>
-                        <div class="project-links" style="display: flex; gap: 1rem; align-items: center;">
-                            <a href="https://github.com/Elohim00/Sales-Performance-and-Customer-Satisfaction-Analysis-.git" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> View Project
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i> Source Code
                             </a>
-                            <a href="#" class="project-link" target="_blank" title="View Dashboard">
-                                <i class="fas fa-external-link-alt"></i> Live Dashboard
+                            <a href="#" class="project-link">
+                                <i class="fas fa-chart-bar"></i> Visualization
                             </a>
                         </div>
                     </div>
@@ -818,220 +908,175 @@
 
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x200/764ba2/F8FAFC?text=Project+Thumbnail+3" alt="Project 3 Thumbnail">
-                    </div>
+                            <img src="Images/project_2.png" alt="Supply Chain Efficiency Dashboard Thumbnail"> </div>
                     <div class="project-content">
-                        <h3 class="project-title">Supply Chain Efficiency Dashboard</h3>
-                        <p class="project-description">
-                            Developed an interactive Power BI dashboard to monitor key performance indicators (KPIs) across the supply chain, including inventory turnover, on-time delivery rates, and vendor performance. This enabled real-time decision-making, reduced operational bottlenecks, and improved overall logistical efficiency by identifying areas for optimization.
+                        <h3>Supply Chain Efficiency Dashboard</h3>
+                        <p>Analyzed inventory turnover and demand patterns, created automated reporting system that reduced excess inventory by 30% and stockouts by 20%.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">SQL</span>
+                            <span class="tech-tag">Power BI</span>
+                            <span class="tech-tag">Excel VBA</span>
+                            <span class="tech-tag">Statistics</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fas fa-play"></i> Demo Video
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-download"></i> Template
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                         <img src="Images/marketing.jpg" alt="Supply Chain Efficiency Dashboard Thumbnail"> </div>
+                    <div class="project-content">
+                        <h3>Marketing Campaign Performance Tracker</h3>
+                        <p>Developed automated reporting system to track marketing ROI across channels, providing insights that increased campaign efficiency by 40%.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Google Analytics</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Matplotlib</span>
+                            <span class="tech-tag">API Integration</span>
+                            <span class="tech-tag">Excel</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fas fa-link"></i> Dashboard
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-blog"></i> Blog Post
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section experience-section" id="experience">
+            <h2 class="section-title">Professional <span class="accent">Journey</span></h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date"> Present</div>
+                        <h3 class="timeline-title">Data Analyst - Freelance</h3>
+                        <p class="timeline-description">
+                            Data Analyst & BI Expert transforming complex data into clear, actionable insights with SQL, Python, and Power BI.
+							I help businesses drive smarter decisions through impactful dashboards and precision analytics.
+
                         </p>
-                        <div class="project-tools">
-                            <span class="tool-tag">Power BI</span>
-                            <span class="tool-tag">SQL</span>
-                            <span class="tool-tag">Excel</span>
-                            <span class="tool-tag">Data Modeling</span>
-                        </div>
-                        <div class="project-links" style="display: flex; gap: 1rem; align-items: center;">
-                            <a href="#" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> View Project
-                            </a>
-                            <a href="#" class="project-link" target="_blank" title="View Dashboard">
-                                <i class="fas fa-external-link-alt"></i> Live Dashboard
-                            </a>
-                        </div>
                     </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022 - 2025</div>
+                        <h3 class="timeline-title">Customer Support and Analyst - Naija Beauty Hair</h3>
+                        <p class="timeline-description">
+                           Customer Support & Data Analyst at Naija Beauty Hair, blending service excellence with insight-driven decisions.
+						   Turning customer interactions and sales data into strategies that enhance experience and drive growth.
+
+                        </p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025</div>
+                        <h3 class="timeline-title"> Data Analyst Intern - Ideanovate Africa </h3>
+                        <p class="timeline-description">
+                            Focused on transforming raw data into actionable business insights.
+                            Supported strategic projects through data cleaning, visualization, and performance tracking to inform key decisions.
+                        </p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024 </div>
+                        <h3 class="timeline-title">Data Intern - Excelerate</h3>
+                        <p class="timeline-description">
+                             Organizing, cleaning, and analyzing data to support business reporting.
+                             Assisted in creating dashboards and extracting insights that improved operational efficiency and decision-making..
+                        </p>
+                    </div>
+                    <div class="timeline-dot"></div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Skills & Expertise</h2>
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3><i class="fas fa-database"></i> Data Management & Analysis</h3>
-                    <div class="skill-item">
-                        <div class="skill-icon"><i class="fas fa-database"></i></div>
-                        <div class="skill-info">
-                            <div class="skill-name">SQL</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="80%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-icon"><i class="fab fa-python"></i></div>
-                        <div class="skill-info">
-                            <div class="skill-name">Python</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="70%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-icon"><i class="fas fa-file-excel"></i></div>
-                        <div class="skill-info">
-                            <div class="skill-name">Advanced Excel</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="75%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <section class="section resume-section" id="resume">
+            <h2 class="section-title">My <span class="accent">Resume</span></h2>
+            <p style="color: #a0a0a0; font-size: 1.1rem; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                View my full resume directly in your browser or download it.
+            </p>
+            <a href="Images/resume_sample.pdf" class="btn btn-primary" target="_blank">
+                <i class="fas fa-file-pdf"></i> View Resume
+            </a>
 
-                <div class="skill-category">
-                    <h3><i class="fas fa-chart-bar"></i> Data Visualization</h3>
-                    <div class="skill-item">
-                        <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
-                        <div class="skill-info">
-                            <div class="skill-name">Power BI</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="80%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-icon"><i class="fas fa-code"></i></div>
-                        <div class="skill-info">
-                            <div class="skill-name">DAX</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="75%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-icon"><i class="fas fa-chart-pie"></i></div>
-                        <div class="skill-info">
-                            <div class="skill-name">Dashboard Design</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <p style="color: #a0a0a0; font-size: 0.9rem; margin-top: 20px;">
+                (If "View Resume" doesn't open in a new tab, right-click and 'Open link in new tab'.)
+            </p>
+        </section>
 
-                <div class="skill-category">
-                    <h3><i class="fas fa-brain"></i> Analytical Thinking</h3>
-                    <div class="skill-item">
-                        <div class="skill-icon"><i class="fas fa-search"></i></div>
-                        <div class="skill-info">
-                            <div class="skill-name">Statistical Analysis</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="80%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-icon"><i class="fas fa-users"></i></div>
-                        <div class="skill-info">
-                            <div class="skill-name">Customer Segmentation</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-icon"><i class="fas fa-bullseye"></i></div>
-                        <div class="skill-info">
-                            <div class="skill-name">Performance Optimization</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="90%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i class="fas fa-lightbulb"></i> Business Impact</h3>
-                    <div style="color: var(--text-secondary); line-height: 1.8;">
-                        <div><i class="fas fa-check-circle" style="color: var(--accent-secondary); margin-right: 0.5rem;"></i>Campaign Performance Analysis</div>
-                        <div><i class="fas fa-check-circle" style="color: var(--accent-secondary); margin-right: 0.5rem;"></i>Cost Optimization Strategies</div>
-                        <div><i class="fas fa-check-circle" style="color: var(--accent-secondary); margin-right: 0.5rem;"></i>ROI Maximization</div>
-                        <div><i class="fas fa-check-circle" style="color: var(--accent-secondary); margin-right: 0.5rem;"></i>Data-Driven Decision Making</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="resume" class="resume">
-        <div class="container">
-            <h2 class="section-title">My Resume</h2>
-            <div class="resume-content">
-                <p class="resume-text">
-                    For a detailed overview of my professional experience, education, and specific achievements in data analysis and strategy, please download my full resume.
-                </p>
-                <div class="resume-buttons">
-                    <a href="Omitogun_Emmanuel_Resume.pdf" class="resume-button download" download="Omitogun_Emmanuel_Resume.pdf">
-                        <i class="fas fa-download"></i> Download Resume (PDF)
-                    </a>
-                    <a href="https://www.linkedin.com/in/emmanuel-inioluwa-b68820263/" class="resume-button view" target="_blank">
-                        <i class="fas fa-file-alt"></i> View on LinkedIn
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Let's Connect</h2>
-            <div class="contact-content">
-                <form class="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-                    <div class="form-group">
-                        <div class="form-row">
-                            <input type="text" class="form-control" name="name" placeholder="Your Name" required>
-                            <input type="email" class="form-control" name="_replyto" placeholder="Your Email" required>
-                        </div>
-                        <input type="text" class="form-control" name="subject" placeholder="Subject" required>
-                        <textarea class="form-control" name="message" placeholder="Your Message" required></textarea>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </div>
-                </form>
-
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/emmanuel-inioluwa-b68820263/" class="social-link" title="LinkedIn" target="_blank">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://github.com/Elohim00" class="social-link" title="GitHub" target="_blank">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="mailto:blessedemmy00@gmail.com" class="social-link" title="Email">
+        <section class="section contact-section" id="contact">
+            <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
+            <p style="color: #a0a0a0; font-size: 1.2rem; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Ready to turn your data into actionable insights? Feel free to reach out!
+            </p>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-icon">
                         <i class="fas fa-envelope"></i>
-                    </a>
+                    </div>
+                    <h4>Email</h4>
+                    <a href="mailto:blessedemmy00@gmail.com">Blessed</a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h4>LinkedIn</h4>
+                    <a href="https://www.linkedin.com/in/emmanuel-inioluwa-b68820263" target="_blank">Emmanuel</a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h4>Phone</h4>
+                    <a href="tel:+2348162918984">+234 (816)209-18984 </a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h4>Location</h4>
+                    <span>Lagos, Nigeria</span>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Omitogun Emmanuel. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <div id="scroll-to-top" class="scroll-arrow">
-        <i class="fas fa-arrow-up"></i>
+            <p class="footer-text">
+                &copy; 2025 Emmanuel Omitogun. All rights reserved.
+            </p>
+        </section>
     </div>
-    <div id="scroll-to-bottom" class="scroll-arrow">
-        <i class="fas fa-arrow-down"></i>
+
+    <div class="scroll-arrow" id="scroll-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    <div class="scroll-arrow" id="scroll-to-bottom">
+        <i class="fas fa-chevron-down"></i>
     </div>
 
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
         // Smooth scrolling for navigation links
-        document.querySelectorAll('nav ul li a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
@@ -1039,40 +1084,42 @@
             });
         });
 
-        // Skill bar animation
-        const skillProgressBars = document.querySelectorAll('.skill-progress');
-        const animateSkills = () => {
-            skillProgressBars.forEach(bar => {
-                const width = bar.getAttribute('data-width');
-                bar.style.width = width;
-            });
-        };
+        // Orbit animation for profile picture (already present, ensuring it works)
+        // This JS is for the orbit dots if you have a complex animation.
+        // The basic CSS animation for .orbit itself is sufficient for simple rotation.
 
-        // Observe when skills section is in view
-        const skillsSection = document.getElementById('skills');
-        const observer = new IntersectionObserver((entries, observer) => {
+        // Skills section animation on scroll (from your original code)
+        const skillsSection = document.querySelector('.skills-section');
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    animateSkills();
-                    observer.unobserve(entry.target); // Only animate once
+                    entry.target.querySelectorAll('.skill-card').forEach((card, index) => {
+                        card.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s forwards`;
+                    });
+                } else {
+                    entry.target.querySelectorAll('.skill-card').forEach((card) => {
+                        card.style.animation = 'none'; // Reset animation when out of view
+                    });
                 }
             });
         }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
 
         observer.observe(skillsSection);
 
-        // Scroll arrows functionality
+        // Scroll arrows functionality (New)
         const scrollToTopBtn = document.getElementById('scroll-to-top');
         const scrollToBottomBtn = document.getElementById('scroll-to-bottom');
 
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 200) { // Show "scroll to top" after scrolling down a bit
+            // Show "scroll to top" after scrolling down a bit
+            if (window.scrollY > 200) {
                 scrollToTopBtn.classList.add('visible');
             } else {
                 scrollToTopBtn.classList.remove('visible');
             }
 
             // Show "scroll to bottom" until near the end of the page
+            // Adjust '200' based on how close to the bottom you want it to disappear
             if ((window.innerHeight + window.scrollY) < document.body.offsetHeight - 200) {
                 scrollToBottomBtn.classList.add('visible');
             } else {
@@ -1094,8 +1141,20 @@
             });
         });
 
-        // Initial check for scroll arrows visibility
+        // Initial check for scroll arrows visibility on page load
         window.dispatchEvent(new Event('scroll'));
+
+        // Optional: Hide the initial scroll-indicator after first scroll or a few seconds
+        const heroScrollIndicator = document.querySelector('.scroll-indicator');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) { // Disappear after scrolling down 50px
+                heroScrollIndicator.style.opacity = '0';
+                heroScrollIndicator.style.pointerEvents = 'none';
+            } else {
+                heroScrollIndicator.style.opacity = '1';
+                heroScrollIndicator.style.pointerEvents = 'auto';
+            }
+        });
 
     </script>
 </body>
