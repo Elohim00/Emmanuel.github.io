@@ -39,9 +39,9 @@
 
         /* Main Container */
         .container {
-            max-width: 1400px;
+            /* max-width: 1400px; /* Removed for full width */
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0; /* Changed to 0 for full width */
             position: relative;
             z-index: 2;
         }
@@ -201,7 +201,7 @@
             font-size: 1.1rem;
             color: #808080;
             margin-bottom: 40px;
-            max-width: 500px;
+            max-width: 500px; /* Kept max-width for readability within content */
             line-height: 1.8;
         }
 
@@ -356,7 +356,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 40px;
-            max-width: 1200px;
+            max-width: 1200px; /* Kept max-width for content readability */
             margin: 0 auto;
         }
 
@@ -428,7 +428,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 50px;
-            max-width: 1200px;
+            max-width: 1200px; /* Kept max-width for content readability */
             margin: 0 auto;
         }
 
@@ -526,7 +526,7 @@
         }
 
         .timeline {
-            max-width: 800px;
+            max-width: 800px; /* Kept max-width for content readability */
             margin: 0 auto;
             position: relative;
         }
@@ -623,7 +623,7 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 40px;
-            max-width: 800px;
+            max-width: 800px; /* Kept max-width for content readability */
             margin: 0 auto 50px;
         }
 
@@ -760,7 +760,7 @@
 
         @media (max-width: 768px) {
             .container {
-                padding: 0 20px;
+                padding: 0; /* Changed to 0 for full width on mobile */
             }
 
             .nav {
@@ -783,17 +783,18 @@
                 font-size: 3rem;
             }
 
+            /* Adjusted scroll arrow properties for mobile */
             .scroll-arrow {
-                right: 20px;
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
+                right: 15px; /* Move slightly closer to the edge */
+                width: 35px; /* Slightly smaller */
+                height: 35px; /* Slightly smaller */
+                font-size: 18px; /* Smaller icon */
             }
             #scroll-to-prev-section {
-                bottom: 80px;
+                bottom: 70px; /* Adjusted position */
             }
             #scroll-to-next-section {
-                bottom: 20px;
+                bottom: 15px; /* Adjusted position */
             }
 
             .cta-buttons {
@@ -823,6 +824,12 @@
                 height: 380px;
                 top: -65px;
                 left: -65px;
+            }
+            /* Hero section top spacing on mobile */
+            .hero {
+                padding-top: 80px; /* Add space at the top */
+                min-height: auto; /* Allow height to adjust based on content */
+                align-items: flex-start; /* Align content to the top */
             }
         }
 
@@ -1056,7 +1063,7 @@
                 <div class="project-card">
                     <div class="project-image">
                             <img src="Images/project_2.png" alt="Supply Chain Efficiency Dashboard Thumbnail"> </div>
-                    <div class="project=">
+                    <div class="project-content">
                         <h3>Supply Chain Efficiency Dashboard</h3>
                         <p>Analyzed inventory turnover and demand patterns, created automated reporting system that reduced excess inventory by 30% and stockouts by 20%.</p>
                         <div class="tech-stack">
