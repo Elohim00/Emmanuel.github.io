@@ -226,7 +226,7 @@
         .home-content h1 { /* Renamed from .hero-content h1 */
             font-size: clamp(3rem, 6vw, 7rem);
             font-weight: 300;
-            color: #ffffff;
+            color: #ffffff; /* Default color for the name before dynamic styling */
             margin-bottom: 20px;
             line-height: 0.9;
         }
@@ -236,11 +236,36 @@
             font-weight: 600;
         }
 
-        .home-content .subtitle { /* Renamed from .hero-content .subtitle */
+        /* Styles for the dynamically typed name parts */
+        .name-emmanuel {
+            color: #ffffff; /* White color for "Emmanuel" */
+            font-weight: 300; /* Light font weight for "Emmanuel" */
+        }
+
+        .name-omitogun {
+            color: #00ff88; /* Green color for "Omitogun" */
+            font-weight: 600; /* Bold font weight for "Omitogun" */
+        }
+
+        /* Existing .home-content .subtitle style, ensure it's not overridden */
+        .home-content .subtitle {
             font-size: 1.4rem;
             color: #a0a0a0;
             margin-bottom: 30px;
             font-weight: 300;
+        }
+
+        /* New: Styles for the typed text cursor */
+        .typed-cursor {
+            display: inline-block;
+            margin-left: 5px;
+            color: #00ff88; /* Color of the blinking cursor */
+            animation: blinkCursor 0.7s infinite;
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .home-content .professional-summary { /* Renamed from .hero-content .professional-summary */
@@ -930,54 +955,39 @@
                 font-size: 3rem;
             }
 
-            .scroll-arrow {
-                right: 15px;
-                width: 35px;
-                height: 35px;
-                font-size: 18px;
-            }
-            #scroll-to-prev-section {
-                bottom: 70px;
-            }
-            #scroll-to-next-section {
-                bottom: 15px;
+            .home-content .subtitle { /* Renamed from .hero-content .subtitle */
+                font-size: 1.2rem;
             }
 
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
+            .home-content .professional-summary { /* Renamed from .hero-content .professional-summary */
+                font-size: 1rem;
             }
 
-            .home-image { /* Renamed from .hero-image */
-                height: 400px;
+            .section-title {
+                font-size: 2rem;
             }
 
-            .profile-container {
-                width: 250px;
-                height: 250px;
+            .skill-category {
+                padding: 30px 20px;
             }
 
-            .orbit-1 {
-                width: 300px;
-                height: 300px;
-                top: -25px;
-                left: -25px;
+            .project-content {
+                padding: 25px;
             }
 
-            .orbit-2 {
-                width: 380px;
-                height: 380px;
-                top: -65px;
-                left: -65px;
+            .contact-grid {
+                grid-template-columns: 1fr;
             }
-            .home-section { /* Renamed from .hero */
-                padding-top: 80px;
-                min-height: auto;
-                align-items: flex-start;
-            }
+            .skills-grid,
+            .projects-grid,
+            .timeline,
+            .contact-grid,
             .home-grid { /* Renamed from .hero-grid */
-                padding: 0 20px;
+                padding: 0 15px;
+            }
+            /* Adjust mobile nav width for very small screens if needed */
+            .mobile-nav-overlay {
+                width: 250px;
             }
         }
 
@@ -1099,7 +1109,10 @@
     </div>
 
     <div class="container">
-        <section class="home-section" id="home"> <div class="home-grid"> <div class="home-content"> <h1>Emmanuel <span class="highlight">Omitogun</span></h1>
+        <section class="home-section" id="home">
+            <div class="home-grid">
+                <div class="home-content">
+                    <h1><span id="typed-name-content"></span><span class="typed-cursor">|</span></h1>
                     <p class="subtitle">Data Analyst & Business Intelligence Specialist</p>
                     <p class="professional-summary">
                         I'm a data analyst passionate about solving real-world problems using Power BI, Excel, SQL, and storytelling.
@@ -1120,7 +1133,8 @@
                         </a>
                     </div>
                 </div>
-                <div class="home-image"> <div class="profile-container">
+                <div class="home-image">
+                    <div class="profile-container">
                         <div class="profile-pic">
                             <img src="Images/picture_2.jpg" alt="Omitogun Emmanuel">
                         </div>
@@ -1609,6 +1623,77 @@
                 }
             });
         }
+
+        // Typing and Deleting Effect for the Name
+        const typedNameElement = document.getElementById('typed-name-content');
+        const fullNameToType = "Emmanuel Omitogun"; // Plain text
+        let displayedText = ""; // Holds the plain text currently typed/deleted
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100; // milliseconds per character
+        let deletingSpeed = 50; // milliseconds per character
+        let pauseAfterType = 2000; // milliseconds to pause after typing
+        let pauseAfterDelete = 1000; // milliseconds to pause after deleting
+
+        function updateDisplay() {
+            // This function takes the plain `displayedText` and adds the HTML styling
+            let htmlContent = displayedText;
+            const omitogunStart = displayedText.indexOf("Omitogun");
+
+            if (omitogunStart !== -1) {
+                // If "Omitogun" is present, wrap it with the green class
+                const emmanuelPart = displayedText.substring(0, omitogunStart);
+                const omitogunPart = displayedText.substring(omitogunStart);
+                htmlContent = `<span class='name-emmanuel'>${emmanuelPart}</span>` +
+                              `<span class='name-omitogun'>${omitogunPart}</span>`;
+            } else {
+                // If only "Emmanuel" (or partial) is present, apply white class to it
+                htmlContent = `<span class='name-emmanuel'>${displayedText}</span>`;
+            }
+            typedNameElement.innerHTML = htmlContent;
+        }
+
+        function typeEffect() {
+            if (!isDeleting) {
+                // Typing
+                if (charIndex < fullNameToType.length) {
+                    displayedText += fullNameToType.charAt(charIndex);
+                    charIndex++;
+                    updateDisplay(); // Update HTML with styling
+                    setTimeout(typeEffect, typingSpeed);
+                } else {
+                    // Finished typing, start deleting after a pause
+                    isDeleting = true;
+                    setTimeout(typeEffect, pauseAfterType);
+                }
+            } else {
+                // Deleting
+                if (displayedText.length > 0) {
+                    displayedText = displayedText.slice(0, -1);
+                    updateDisplay(); // Update HTML with styling
+                    setTimeout(typeEffect, deletingSpeed);
+                } else {
+                    // Finished deleting, start typing again after a pause
+                    isDeleting = false;
+                    charIndex = 0; // Reset charIndex for re-typing
+                    setTimeout(typeEffect, pauseAfterDelete);
+                }
+            }
+        }
+
+        // Start the effect when the home section is in view
+        const homeSectionElement = document.getElementById('home');
+        const homeObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    typeEffect(); // Start typing when the home section enters view
+                    observer.unobserve(entry.target); // Stop observing once started
+                }
+            });
+        }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
+
+        homeObserver.observe(homeSectionElement);
+
     </script>
 </body>
 </html>
