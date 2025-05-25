@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Omitogun Emmanuel - Data Analyst</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <meta name="description" content="Emmanuel Omitogun – Data Analyst Portfolio showcasing projects in Power BI, SQL, and Excel.">
     <meta property="og:title" content="Emmanuel Omitogun | Data Analyst">
     <meta property="og:image" content="Images/project_1.jpg"> <link rel="icon" href="favicon.ico" type="image/x-icon"> <style>
@@ -103,7 +103,8 @@
             left: 20px; /* Positioned to the left */
             width: 40px;
             height: 40px;
-            background: #00ff88;
+            background: transparent; /* Changed to transparent */
+            border: 1px solid rgba(0, 255, 136, 0.5); /* Ghost border */
             border-radius: 5px;
             align-items: center;
             justify-content: center;
@@ -117,7 +118,7 @@
             display: block;
             width: 25px;
             height: 3px;
-            background: #0a0a0a;
+            background: #00ff88; /* Line color */
             border-radius: 2px;
             margin: 4px 0;
             transition: all 0.3s ease;
@@ -137,44 +138,58 @@
 
         /* Mobile Navigation Overlay */
         .mobile-nav-overlay {
-            display: flex; /* Always flex so transition works */
+            display: flex;
             position: fixed;
             top: 0;
             left: 0;
-            width: 70%; /* Adjust width for side view */
+            width: 280px; /* Adjusted width for a modern side view */
             height: 100%;
-            background: rgba(0, 0, 0, 0.98); /* Slightly darker background */
+            background: rgba(0, 0, 0, 0.98);
             z-index: 1000;
             flex-direction: column;
-            padding: 80px 30px 30px; /* Add padding for content */
+            padding: 100px 30px 30px; /* Increased top padding to clear hamburger */
             transform: translateX(-100%); /* Start off-screen to the left */
-            visibility: hidden; /* Hide content from screen readers when off-screen */
-            transition: transform 0.4s ease-out, visibility 0.4s ease;
+            visibility: hidden;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), visibility 0.4s ease; /* Modern animation curve */
             box-shadow: 2px 0 15px rgba(0, 255, 136, 0.2);
-            justify-content: flex-start; /* Align content to the top */
-            align-items: flex-start; /* Align content to the left */
+            justify-content: flex-start;
+            align-items: flex-start;
         }
 
         .mobile-nav-overlay.open {
-            transform: translateX(0); /* Slide in */
+            transform: translateX(0);
             visibility: visible;
         }
 
         .mobile-nav-overlay a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 1.8rem; /* Slightly smaller for side menu */
-            padding: 15px 0;
+            font-size: 1.1rem; /* Smaller font size for mobile links */
+            padding: 12px 0; /* Adjusted padding */
             transition: color 0.3s ease, transform 0.3s ease;
             text-transform: uppercase;
-            font-weight: 600;
-            width: 100%; /* Ensure links take full width for click area */
+            font-weight: 500; /* Slightly lighter font weight */
+            width: 100%;
             text-align: left;
+            opacity: 0; /* For staggered fade in */
+            transform: translateX(-20px); /* For staggered slide in */
         }
+
+        .mobile-nav-overlay.open a {
+            opacity: 1;
+            transform: translateX(0);
+            /* Staggered animation for each link */
+            animation: fadeInSlideIn 0.5s ease-out forwards;
+        }
+        .mobile-nav-overlay.open a:nth-child(1) { animation-delay: 0.1s; }
+        .mobile-nav-overlay.open a:nth-child(2) { animation-delay: 0.15s; }
+        .mobile-nav-overlay.open a:nth-child(3) { animation-delay: 0.2s; }
+        .mobile-nav-overlay.open a:nth-child(4) { animation-delay: 0.25s; }
+        .mobile-nav-overlay.open a:nth-child(5) { animation-delay: 0.3s; }
 
         .mobile-nav-overlay a:hover {
             color: #00ff88;
-            transform: translateX(10px); /* Slight slide effect on hover */
+            transform: translateX(5px);
         }
 
         /* Hero Section */
@@ -185,7 +200,14 @@
             position: relative;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
             padding-top: 50px; /* Added padding to top for general spacing */
+            opacity: 0; /* Initial state for animation */
+            transform: translateY(20px); /* Initial state for animation */
         }
+
+        .hero.animate-in {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
 
         .hero-grid {
             display: grid;
@@ -355,8 +377,12 @@
         .section {
             padding: 120px 0;
             position: relative;
-            /* Increased spacing between sections */
             margin-bottom: 50px;
+            opacity: 0; /* Initial state for animation */
+            transform: translateY(20px); /* Initial state for animation */
+        }
+        .section.animate-in {
+            animation: fadeInUp 0.8s ease-out forwards;
         }
         .section:last-of-type {
             margin-bottom: 0;
@@ -386,11 +412,10 @@
             gap: 40px;
             max-width: 1200px;
             margin: 0 auto;
-            /* Added padding here to ensure content doesn't touch screen edges */
             padding: 0 40px;
         }
 
-        .skill-category { /* New style for skill categories */
+        .skill-category {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
@@ -403,10 +428,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            opacity: 0; /* Initial state for animation */
+            transform: translateY(20px); /* Initial state for animation */
         }
 
         .skill-category:hover {
-            transform: scale(1.03); /* Zoom out effect */
+            transform: translateY(-10px);
             border-color: #00ff88;
             box-shadow: 0 20px 60px rgba(0, 255, 136, 0.1);
         }
@@ -428,8 +455,8 @@
         }
 
         .skill-category h3 {
-            font-size: 1.6rem; /* Larger heading for categories */
-            color: #00ff88; /* Accent color for category title */
+            font-size: 1.6rem;
+            color: #00ff88;
             margin-bottom: 25px;
             font-weight: 600;
         }
@@ -450,7 +477,7 @@
         }
 
         .skill-item i {
-            color: #00ff88; /* Icon color */
+            color: #00ff88;
             font-size: 1.2rem;
         }
 
@@ -466,7 +493,6 @@
             gap: 50px;
             max-width: 1200px;
             margin: 0 auto;
-            /* Added padding here to ensure content doesn't touch screen edges */
             padding: 0 40px;
         }
 
@@ -478,36 +504,41 @@
             transition: all 0.4s ease;
             position: relative;
             backdrop-filter: blur(20px);
+            opacity: 0; /* Initial state for animation */
+            transform: translateY(20px); /* Initial state for animation */
+        }
+        .project-card.animate-in {
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
         .project-card:hover {
-            transform: scale(1.03); /* Applied zoom out to card as a whole */
+            transform: translateY(-15px);
             box-shadow: 0 30px 80px rgba(0, 255, 136, 0.1);
             border-color: rgba(0, 255, 136, 0.3);
         }
 
         .project-image {
             height: 250px;
-            background: linear-gradient(135deg, #1a1a2e, #16213e); /* Fallback background if image is not set */
-            display: flex; /* For centering the icon if no image */
-            align-items: center; /* For centering the icon if no image */
-            justify-content: center; /* For centering the icon if no image */
-            font-size: 60px; /* For the icon if no image */
-            color: #00ff88; /* For the icon if no image */
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: #00ff88;
             position: relative;
-            overflow: hidden; /* Ensure image fits */
+            overflow: hidden;
         }
 
         .project-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures image covers the area, cropping if necessary */
-            display: block; /* Removes extra space below image */
-            transition: transform 0.3s ease; /* For hover zoom */
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
         }
 
         .project-card:hover .project-image img {
-            transform: scale(1.05); /* Zoom effect on hover */
+            transform: scale(1.05);
         }
 
 
@@ -516,7 +547,7 @@
         }
 
         .project-content h3 {
-            font-size: 1.8rem; /* Larger and bolder for titles */
+            font-size: 1.8rem;
             color: #ffffff;
             margin-bottom: 15px;
             font-weight: 600;
@@ -532,7 +563,7 @@
 
         .project-content p {
             color: #a0a0a0;
-            margin-bottom: 15px; /* Adjusted margin */
+            margin-bottom: 15px;
             line-height: 1.7;
         }
 
@@ -540,7 +571,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 20px; /* Added margin for separation */
+            margin-top: 20px;
             margin-bottom: 25px;
         }
 
@@ -556,7 +587,7 @@
         .project-links {
             display: flex;
             gap: 20px;
-            flex-wrap: wrap; /* Allow wrapping on small screens */
+            flex-wrap: wrap;
             margin-top: 25px;
         }
 
@@ -564,11 +595,11 @@
             color: #ffffff;
             text-decoration: none;
             font-weight: 500;
-            display: inline-flex; /* Use inline-flex for buttons */
+            display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: all 0.3s ease;
-            padding: 10px 20px; /* Make them look like buttons */
+            padding: 10px 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 5px;
         }
@@ -588,7 +619,6 @@
             max-width: 800px;
             margin: 0 auto;
             position: relative;
-            /* Added padding here to ensure content doesn't touch screen edges */
             padding: 0 40px;
         }
 
@@ -621,13 +651,11 @@
             padding: 30px;
             position: relative;
             backdrop-filter: blur(20px);
-            transition: all 0.4s ease; /* Added transition */
+            opacity: 0; /* Initial state for animation */
+            transform: translateY(20px); /* Initial state for animation */
         }
-
-        .timeline-content:hover { /* Hover effect for timeline content */
-            transform: scale(1.02); /* Slight zoom out */
-            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.1);
-            border-color: #00ff88;
+        .timeline-content.animate-in {
+            animation: fadeInUp 0.6s ease-out forwards;
         }
 
         .timeline-item:nth-child(even) .timeline-content {
@@ -671,7 +699,7 @@
 
         /* Contact Section */
         .contact-section {
-            background: #0f0f0f; /* Changed from #0a0a0a for visual separation */
+            background: #0f0f0f;
             text-align: center;
         }
 
@@ -681,7 +709,6 @@
             gap: 40px;
             max-width: 800px;
             margin: 0 auto 50px;
-            /* Added padding here to ensure content doesn't touch screen edges */
             padding: 0 40px;
         }
 
@@ -692,15 +719,20 @@
             padding: 30px 20px;
             transition: all 0.4s ease;
             backdrop-filter: blur(20px);
-            display: flex; /* Use flexbox for vertical alignment */
-            flex-direction: column; /* Stack children vertically */
-            align-items: center; /* Center horizontally */
-            justify-content: center; /* Center vertically */
-            min-height: 120px; /* Ensure consistent height for items */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+            opacity: 0; /* Initial state for animation */
+            transform: translateY(20px); /* Initial state for animation */
+        }
+        .contact-item.animate-in {
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
         .contact-item:hover {
-            transform: scale(1.05); /* Applied zoom out to contact item */
+            transform: translateY(-5px);
             border-color: #00ff88;
             box-shadow: 0 15px 40px rgba(0, 255, 136, 0.1);
         }
@@ -715,27 +747,25 @@
             justify-content: center;
             font-size: 24px;
             color: #0a0a0a;
-            margin: 0 auto; /* Center the icon */
-            /* Removed bottom margin, as link will wrap it */
+            margin: 0 auto;
         }
-        /* Style for the links/spans that wrap the icons */
         .contact-item a,
         .contact-item span {
-            color: #a0a0a0; /* Keeping a default color for consistency if needed */
+            color: #a0a0a0;
             text-decoration: none;
-            font-size: 0.9rem; /* Keep this for accessibility if text is ever re-added or for screen readers */
+            font-size: 0.9rem;
             transition: color 0.3s ease;
-            display: flex; /* Make it a flex container to center the icon */
-            justify-content: center; /* Center the icon horizontally */
-            align-items: center; /* Center the icon vertically */
-            width: 100%; /* Ensure the link/span takes full width */
-            height: 100%; /* Ensure the link/span takes full height of the item */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
         }
         .contact-item a:hover .contact-icon,
         .contact-item span:hover .contact-icon {
-            background: #00ff88; /* Change icon background on hover */
-            color: #0a0a0a; /* Ensure icon color stays dark on hover */
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5); /* Add glow on hover */
+            background: #00ff88;
+            color: #0a0a0a;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
         }
 
         .footer-text {
@@ -763,7 +793,7 @@
             z-index: 999;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(20px); /* Initial state for animation */
+            transform: translateY(20px);
         }
 
         .scroll-arrow:hover {
@@ -779,11 +809,35 @@
         }
 
         #scroll-to-prev-section {
-            bottom: 100px; /* Position for previous section arrow */
+            bottom: 100px;
         }
 
         #scroll-to-next-section {
-            bottom: 30px; /* Position for next section arrow */
+            bottom: 30px;
+        }
+
+        /* Keyframes for fade in up animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyframes for mobile nav link staggered animation */
+        @keyframes fadeInSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
 
@@ -793,13 +847,21 @@
                 grid-template-columns: 1fr;
                 gap: 50px;
                 text-align: center;
+                /* Added for mobile order change */
+                display: flex;
+                flex-direction: column;
+            }
+
+            .hero-image {
+                order: -1; /* Moves image to the top */
+                margin-bottom: 30px; /* Space below the image */
             }
 
             .skills-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             .skill-category {
-                padding: 30px 20px; /* Adjust padding for categories */
+                padding: 30px 20px;
             }
             .skill-category h3 {
                 font-size: 1.4rem;
@@ -836,22 +898,22 @@
 
         @media (max-width: 768px) {
             .container {
-                padding: 0; /* Full width on mobile */
+                padding: 0;
             }
 
             .nav {
-                display: none; /* Hide desktop nav on mobile */
+                display: none;
             }
 
             .hamburger-menu {
-                display: flex; /* Show hamburger on mobile */
+                display: flex;
             }
 
             .skills-grid,
             .projects-grid,
             .timeline,
             .contact-grid {
-                padding: 0 20px; /* Add some padding back to inner grids on mobile */
+                padding: 0 20px;
             }
 
             .skills-grid {
@@ -866,28 +928,27 @@
                 font-size: 3rem;
             }
 
-            /* Adjusted scroll arrow properties for mobile */
             .scroll-arrow {
-                right: 15px; /* Move slightly closer to the edge */
-                width: 35px; /* Slightly smaller */
-                height: 35px; /* Slightly smaller */
-                font-size: 18px; /* Smaller icon */
+                right: 15px;
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
             }
             #scroll-to-prev-section {
-                bottom: 70px; /* Adjusted position */
+                bottom: 70px;
             }
             #scroll-to-next-section {
-                bottom: 15px; /* Adjusted position */
+                bottom: 15px;
             }
 
             .cta-buttons {
-                flex-direction: column; /* Stack buttons vertically on small screens */
+                flex-direction: column;
                 align-items: center;
                 gap: 15px;
             }
 
             .hero-image {
-                height: 400px; /* Adjust height for mobile */
+                height: 400px;
             }
 
             .profile-container {
@@ -908,37 +969,34 @@
                 top: -65px;
                 left: -65px;
             }
-            /* Hero section top spacing on mobile */
             .hero {
-                padding-top: 80px; /* Add space at the top */
-                min-height: auto; /* Allow height to adjust based on content */
-                align-items: flex-start; /* Align content to the top */
+                padding-top: 80px;
+                min-height: auto;
+                align-items: flex-start;
             }
-            /* Hero grid specific adjustments for mobile */
             .hero-grid {
-                padding: 0 20px; /* Ensure hero content has padding on mobile */
+                padding: 0 20px;
             }
         }
 
-        /* NEW MEDIA QUERY FOR SMALLER MOBILE SCREENS */
         @media (max-width: 400px) {
             .profile-container {
-                width: 200px; /* Reduced further */
-                height: 200px; /* Reduced further */
+                width: 200px;
+                height: 200px;
             }
 
             .orbit-1 {
-                width: 250px; /* Reduced */
-                height: 250px; /* Reduced */
-                top: -25px; /* Adjusted offset */
-                left: -25px; /* Adjusted offset */
+                width: 250px;
+                height: 250px;
+                top: -25px;
+                left: -25px;
             }
 
             .orbit-2 {
-                width: 300px; /* Reduced */
-                height: 300px; /* Reduced */
-                top: -50px; /* Adjusted offset */
-                left: -50px; /* Adjusted offset */
+                width: 300px;
+                height: 300px;
+                top: -50px;
+                left: -50px;
             }
 
             .hero-content h1 {
@@ -949,7 +1007,7 @@
                 font-size: 1.2rem;
             }
 
-            .hero-content .professional-summary { /* Changed from .description */
+            .hero-content .professional-summary {
                 font-size: 1rem;
             }
 
@@ -957,7 +1015,7 @@
                 font-size: 2rem;
             }
 
-            .skill-category { /* Changed from skill-card */
+            .skill-category {
                 padding: 30px 20px;
             }
 
@@ -966,15 +1024,18 @@
             }
 
             .contact-grid {
-                grid-template-columns: 1fr; /* Stack contact items on very small screens */
+                grid-template-columns: 1fr;
             }
-            /* Adjust padding for inner grids on very small screens if needed */
             .skills-grid,
             .projects-grid,
             .timeline,
             .contact-grid,
             .hero-grid {
-                padding: 0 15px; /* Slightly less padding for very small screens */
+                padding: 0 15px;
+            }
+            /* Adjust mobile nav width for very small screens if needed */
+            .mobile-nav-overlay {
+                width: 250px;
             }
         }
 
@@ -1099,7 +1160,7 @@
                     <h3>Tools & Platforms</h3>
                     <div class="skill-item"><i class="fas fa-table"></i> Power BI</div>
                     <div class="skill-item"><i class="fas fa-table"></i> Tableau</div>
-                    <div class="skill-item"><i class="fab fa-github"></i> Git/GitHub</div>
+                    <div class="fab fa-github"></i> Git/GitHub</div>
                     <div class="skill-item"><i class="fas fa-cloud"></i> Google Cloud (basics)</div>
                 </div>
             </div>
@@ -1117,8 +1178,6 @@
                         <h3>Insurance Campaign Performance Optimization</h3>
                         <p class="project-description-heading">Problem Solved:</p>
                         <p>Despite making 45,211 outbound calls, the insurer achieved only an 11.7% conversion rate, with 23.63 calls required per successful sale. Key challenges included unclear customer segmentation, high cost per sale, and inefficient targeting strategies.</p>
-                        <p class="project-description-heading">Key Insight:</p>
-                        <p>Through comprehensive data analysis, I uncovered insights about the most responsive customers, optimal channels and timing for highest ROI, and strategies to optimize conversion without increasing call volume, leading to improved efficiency and reduced costs.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">Power BI</span>
                             <span class="tech-tag">SQL</span>
@@ -1144,8 +1203,6 @@
                         <h3>Customer Segmentation Analysis</h3>
                         <p class="project-description-heading">Problem Solved:</p>
                         <p>Businesses often struggle with generic marketing efforts, leading to low engagement and retention. This project aimed to identify distinct customer groups for targeted strategies.</p>
-                        <p class="project-description-heading">Key Insight:</p>
-                        <p>Performed RFM (Recency, Frequency, Monetary) analysis and K-means clustering to segment customers. This enabled targeted marketing campaigns that improved customer retention by 25% by tailoring promotions to specific segments.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">Python</span>
                             <span class="tech-tag">K-means Clustering</span>
@@ -1171,8 +1228,6 @@
                         <h3>Supply Chain Efficiency Dashboard</h3>
                         <p class="project-description-heading">Problem Solved:</p>
                         <p>Inefficient inventory management and unpredictable demand patterns led to significant excess inventory and frequent stockouts, impacting profitability and customer satisfaction.</p>
-                        <p class="project-description-heading">Key Insight:</p>
-                        <p>Analyzed inventory turnover and demand patterns, then developed an automated reporting system. This solution reduced excess inventory by 30% and stockouts by 20%, optimizing supply chain operations.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">SQL</span>
                             <span class="tech-tag">Power BI</span>
@@ -1198,8 +1253,6 @@
                         <h3>Marketing Campaign Performance Tracker</h3>
                         <p class="project-description-heading">Problem Solved:</p>
                         <p>Lack of a centralized system to track marketing campaign performance across various channels made it difficult to assess ROI and optimize future spending.</p>
-                        <p class="project-description-heading">Key Insight:</p>
-                        <p>Developed an automated reporting system to track marketing ROI across channels using Google Analytics API. This provided real-time insights that increased overall campaign efficiency by 40%.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">Google Analytics</span>
                             <span class="tech-tag">Python</span>
@@ -1355,26 +1408,70 @@
             });
         });
 
-        // Skills section animation on scroll (keeping original for skill-card now skill-category)
-        const skillsSection = document.querySelector('.skills-section');
-        const skillCategoryCards = document.querySelectorAll('.skill-category'); // Updated selector
-        const observer = new IntersectionObserver((entries) => {
+        // Function to handle IntersectionObserver for sections
+        const animateOnScroll = (entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    skillCategoryCards.forEach((card, index) => { // Updated loop
-                        card.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s forwards`;
-                    });
-                } else {
-                    skillCategoryCards.forEach((card) => { // Updated loop
-                        card.style.animation = 'none'; // Reset animation when out of view
-                    });
+                    const targetElement = entry.target;
+                    // Apply animation based on the element type or a specific class
+                    if (targetElement.classList.contains('hero')) {
+                        targetElement.classList.add('animate-in');
+                    } else if (targetElement.classList.contains('skills-section')) {
+                        // Stagger animation for skill cards
+                        const skillCategoryCards = targetElement.querySelectorAll('.skill-category');
+                        skillCategoryCards.forEach((card, index) => {
+                            card.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s forwards`;
+                        });
+                        // Remove initial opacity/transform for the section itself if it was set
+                        targetElement.style.opacity = 1;
+                        targetElement.style.transform = 'translateY(0)';
+                    } else if (targetElement.classList.contains('projects-section')) {
+                         // Stagger animation for project cards
+                        const projectCards = targetElement.querySelectorAll('.project-card');
+                        projectCards.forEach((card, index) => {
+                            card.style.animation = `fadeInUp 0.8s ease-out ${index * 0.15}s forwards`;
+                        });
+                        // Remove initial opacity/transform for the section itself if it was set
+                        targetElement.style.opacity = 1;
+                        targetElement.style.transform = 'translateY(0)';
+                    } else if (targetElement.classList.contains('experience-section')) {
+                        // Stagger animation for timeline items
+                        const timelineItems = targetElement.querySelectorAll('.timeline-content');
+                        timelineItems.forEach((item, index) => {
+                            item.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s forwards`;
+                        });
+                        // Remove initial opacity/transform for the section itself if it was set
+                        targetElement.style.opacity = 1;
+                        targetElement.style.transform = 'translateY(0)';
+                    } else if (targetElement.classList.contains('contact-section')) {
+                        // Stagger animation for contact items
+                        const contactItems = targetElement.querySelectorAll('.contact-item');
+                        contactItems.forEach((item, index) => {
+                            item.style.animation = `fadeInUp 0.8s ease-out ${index * 0.15}s forwards`;
+                        });
+                        // Remove initial opacity/transform for the section itself if it was set
+                        targetElement.style.opacity = 1;
+                        targetElement.style.transform = 'translateY(0)';
+                    } else {
+                        // For other sections, apply general animate-in
+                        targetElement.classList.add('animate-in');
+                    }
+                    observer.unobserve(entry.target); // Stop observing once animated
                 }
             });
-        }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
+        };
 
-        if (skillsSection) {
-            observer.observe(skillsSection);
-        }
+        const sectionObservers = new IntersectionObserver(animateOnScroll, {
+            root: null, // viewport
+            rootMargin: '0px',
+            threshold: 0.2 // Adjust as needed, 20% of section visible
+        });
+
+        // Observe all sections for animation
+        document.querySelectorAll('.section, .hero').forEach(section => {
+            sectionObservers.observe(section);
+        });
+
 
         // Section-by-section scroll arrows functionality
         const sections = Array.from(document.querySelectorAll('section[id]'));
@@ -1387,7 +1484,7 @@
             threshold: 0.5 // Trigger when 50% of the section is visible
         };
 
-        const sectionObserver = new IntersectionObserver((entries) => {
+        const sectionNavigationObserver = new IntersectionObserver((entries) => {
             if (isScrollingProgrammatically) return; // Ignore observer updates during programmatic scroll
 
             let visibleSection = null;
@@ -1409,7 +1506,7 @@
         }, observerOptions);
 
         sections.forEach(section => {
-            sectionObserver.observe(section);
+            sectionNavigationObserver.observe(section);
         });
 
         const scrollToPrevBtn = document.getElementById('scroll-to-prev-section');
