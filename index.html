@@ -186,14 +186,16 @@
         .mobile-nav-overlay.open a:nth-child(3) { animation-delay: 0.2s; }
         .mobile-nav-overlay.open a:nth-child(4) { animation-delay: 0.25s; }
         .mobile-nav-overlay.open a:nth-child(5) { animation-delay: 0.3s; }
+        .mobile-nav-overlay.open a:nth-child(6) { animation-delay: 0.35s; } /* New Home link */
+
 
         .mobile-nav-overlay a:hover {
             color: #00ff88;
             transform: translateX(5px);
         }
 
-        /* Hero Section */
-        .hero {
+        /* Home Section (Previously Hero Section) */
+        .home-section { /* Renamed from .hero */
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -204,12 +206,12 @@
             transform: translateY(20px); /* Initial state for animation */
         }
 
-        .hero.animate-in {
+        .home-section.animate-in { /* Renamed from .hero.animate-in */
             animation: fadeInUp 1s ease-out forwards;
         }
 
 
-        .hero-grid {
+        .home-grid { /* Renamed from .hero-grid */
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 80px;
@@ -221,7 +223,7 @@
             margin: 0 auto; /* Center the hero grid content */
         }
 
-        .hero-content h1 {
+        .home-content h1 { /* Renamed from .hero-content h1 */
             font-size: clamp(3rem, 6vw, 7rem);
             font-weight: 300;
             color: #ffffff;
@@ -229,19 +231,19 @@
             line-height: 0.9;
         }
 
-        .hero-content .highlight {
+        .home-content .highlight { /* Renamed from .hero-content .highlight */
             color: #00ff88;
             font-weight: 600;
         }
 
-        .hero-content .subtitle {
+        .home-content .subtitle { /* Renamed from .hero-content .subtitle */
             font-size: 1.4rem;
             color: #a0a0a0;
             margin-bottom: 30px;
             font-weight: 300;
         }
 
-        .hero-content .professional-summary { /* New style for professional summary */
+        .home-content .professional-summary { /* Renamed from .hero-content .professional-summary */
             font-size: 1.1rem;
             color: #808080;
             margin-bottom: 40px;
@@ -249,7 +251,7 @@
             line-height: 1.8;
         }
 
-        .hero-image {
+        .home-image { /* Renamed from .hero-image */
             position: relative;
             height: 600px;
             display: flex;
@@ -843,7 +845,7 @@
 
         /* Responsive Design */
         @media (max-width: 1024px) {
-            .hero-grid {
+            .home-grid { /* Renamed from .hero-grid */
                 grid-template-columns: 1fr;
                 gap: 50px;
                 text-align: center;
@@ -852,7 +854,7 @@
                 flex-direction: column;
             }
 
-            .hero-image {
+            .home-image { /* Renamed from .hero-image */
                 order: -1; /* Moves image to the top */
                 margin-bottom: 30px; /* Space below the image */
             }
@@ -924,7 +926,7 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .hero-content h1 {
+            .home-content h1 { /* Renamed from .hero-content h1 */
                 font-size: 3rem;
             }
 
@@ -947,7 +949,7 @@
                 gap: 15px;
             }
 
-            .hero-image {
+            .home-image { /* Renamed from .hero-image */
                 height: 400px;
             }
 
@@ -969,12 +971,12 @@
                 top: -65px;
                 left: -65px;
             }
-            .hero {
+            .home-section { /* Renamed from .hero */
                 padding-top: 80px;
                 min-height: auto;
                 align-items: flex-start;
             }
-            .hero-grid {
+            .home-grid { /* Renamed from .hero-grid */
                 padding: 0 20px;
             }
         }
@@ -999,15 +1001,15 @@
                 left: -50px;
             }
 
-            .hero-content h1 {
+            .home-content h1 { /* Renamed from .hero-content h1 */
                 font-size: 2.5rem;
             }
 
-            .hero-content .subtitle {
+            .home-content .subtitle { /* Renamed from .hero-content .subtitle */
                 font-size: 1.2rem;
             }
 
-            .hero-content .professional-summary {
+            .home-content .professional-summary { /* Renamed from .hero-content .professional-summary */
                 font-size: 1rem;
             }
 
@@ -1030,7 +1032,7 @@
             .projects-grid,
             .timeline,
             .contact-grid,
-            .hero-grid {
+            .home-grid { /* Renamed from .hero-grid */
                 padding: 0 15px;
             }
             /* Adjust mobile nav width for very small screens if needed */
@@ -1073,6 +1075,7 @@
     <div class="noise-bg"></div>
 
     <nav class="nav" id="main-nav">
+        <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
@@ -1087,6 +1090,7 @@
     </div>
 
     <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+        <a href="#home" class="mobile-nav-link">Home</a>
         <a href="#about" class="mobile-nav-link">About</a>
         <a href="#skills" class="mobile-nav-link">Skills</a>
         <a href="#projects" class="mobile-nav-link">Projects</a>
@@ -1095,10 +1099,7 @@
     </div>
 
     <div class="container">
-        <section class="hero" id="about">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <h1>Emmanuel <span class="highlight">Omitogun</span></h1>
+        <section class="home-section" id="home"> <div class="home-grid"> <div class="home-content"> <h1>Emmanuel <span class="highlight">Omitogun</span></h1>
                     <p class="subtitle">Data Analyst & Business Intelligence Specialist</p>
                     <p class="professional-summary">
                         I'm a data analyst passionate about solving real-world problems using Power BI, Excel, SQL, and storytelling.
@@ -1119,8 +1120,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="hero-image">
-                    <div class="profile-container">
+                <div class="home-image"> <div class="profile-container">
                         <div class="profile-pic">
                             <img src="Images/picture_2.jpg" alt="Omitogun Emmanuel">
                         </div>
@@ -1135,6 +1135,18 @@
             </div>
             <div class="scroll-indicator">
                 <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section class="section" id="about">
+            <h2 class="section-title">About <span class="accent">Me</span></h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center; color: #a0a0a0; font-size: 1.1rem; line-height: 1.8;">
+                <p>Hello! I'm Emmanuel Omitogun, a dedicated Data Analyst with a strong passion for transforming raw data into meaningful and actionable insights. My journey in data began with a curiosity for understanding patterns and a desire to solve complex business challenges.</p>
+                <p style="margin-top: 20px;">I specialize in leveraging tools like Power BI, Excel, and SQL to clean, analyze, and visualize data, helping organizations make informed decisions. My expertise spans across various domains, including business performance, customer behavior, and operational efficiency.</p>
+                <p style="margin-top: 20px;">I believe that every dataset tells a story, and my goal is to uncover these narratives and present them in a clear, compelling way. I'm constantly learning and exploring new technologies to enhance my analytical capabilities and deliver even greater value.</p>
+                <p style="margin-top: 20px;">Outside of data, I enjoy exploring new recipes, reading, and hiking. I'm always open to connecting with fellow data enthusiasts and discussing exciting projects!</p>
             </div>
         </section>
 
@@ -1414,7 +1426,7 @@
                 if (entry.isIntersecting) {
                     const targetElement = entry.target;
                     // Apply animation based on the element type or a specific class
-                    if (targetElement.classList.contains('hero')) {
+                    if (targetElement.classList.contains('home-section')) { // Updated class
                         targetElement.classList.add('animate-in');
                     } else if (targetElement.classList.contains('skills-section')) {
                         // Stagger animation for skill cards
@@ -1453,7 +1465,7 @@
                         targetElement.style.opacity = 1;
                         targetElement.style.transform = 'translateY(0)';
                     } else {
-                        // For other sections, apply general animate-in
+                        // For other sections (like the new 'about' section), apply general animate-in
                         targetElement.classList.add('animate-in');
                     }
                     observer.unobserve(entry.target); // Stop observing once animated
@@ -1468,7 +1480,7 @@
         });
 
         // Observe all sections for animation
-        document.querySelectorAll('.section, .hero').forEach(section => {
+        document.querySelectorAll('.section, .home-section').forEach(section => { // Updated class
             sectionObservers.observe(section);
         });
 
@@ -1556,11 +1568,11 @@
 
         // Sticky navigation bar
         const mainNav = document.getElementById('main-nav');
-        const heroSection = document.querySelector('.hero');
+        const homeSection = document.getElementById('home'); // Updated to target home section
         let navHeight = mainNav.offsetHeight;
 
         function checkStickyNav() {
-            if (window.scrollY > heroSection.offsetHeight - navHeight) { // Adjust threshold as needed
+            if (homeSection && window.scrollY > homeSection.offsetHeight - navHeight) { // Adjust threshold as needed
                 mainNav.classList.add('sticky');
             } else {
                 mainNav.classList.remove('sticky');
@@ -1585,15 +1597,15 @@
         });
 
         // Optional: Hide the initial scroll-indicator after first scroll or a few seconds
-        const heroScrollIndicator = document.querySelector('.scroll-indicator');
-        if (heroScrollIndicator) {
+        const homeScrollIndicator = document.querySelector('.scroll-indicator'); // Updated to home scroll indicator
+        if (homeScrollIndicator) {
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) { // Disappear after scrolling down 50px
-                    heroScrollIndicator.style.opacity = '0';
-                    heroScrollIndicator.style.pointerEvents = 'none';
+                    homeScrollIndicator.style.opacity = '0';
+                    homeScrollIndicator.style.pointerEvents = 'none';
                 } else {
-                    heroScrollIndicator.style.opacity = '1';
-                    heroScrollIndicator.style.pointerEvents = 'auto';
+                    homeScrollIndicator.style.opacity = '1';
+                    homeScrollIndicator.style.pointerEvents = 'auto';
                 }
             });
         }
