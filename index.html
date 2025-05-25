@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Omitogun Emmanuel - Data Analyst</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <meta name="description" content="Emmanuel Omitogun – Data Analyst Portfolio showcasing projects in Power BI, SQL, and Excel.">
     <meta property="og:title" content="Emmanuel Omitogun | Data Analyst">
     <meta property="og:image" content="Images/project_1.jpg"> <link rel="icon" href="favicon.ico" type="image/x-icon"> <style>
@@ -104,7 +104,7 @@
             width: 40px;
             height: 40px;
             background: transparent; /* Changed to transparent */
-            border: 1px solid rgba(0, 255, 136, 0.5); /* Ghost border */
+            border: none; /* Changed: Completely removed the border */
             border-radius: 5px;
             align-items: center;
             justify-content: center;
@@ -1109,13 +1109,13 @@
                             <i class="fas fa-rocket"></i>
                             Let's Connect
                         </a>
-                        <a href="#projects" class="btn btn-secondary">
-                            <i class="fas fa-chart-bar"></i>
-                            View Projects
-                        </a>
                         <a href="Images/resume_sample.pdf" class="btn btn-secondary" target="_blank">
                             <i class="fas fa-download"></i>
                             Download Resume
+                        </a>
+                        <a href="#projects" class="btn btn-secondary">
+                            <i class="fas fa-chart-bar"></i>
+                            View Projects
                         </a>
                     </div>
                 </div>
@@ -1431,7 +1431,7 @@
                         projectCards.forEach((card, index) => {
                             card.style.animation = `fadeInUp 0.8s ease-out ${index * 0.15}s forwards`;
                         });
-                        // Remove initial opacity/transform for the section itself if it was set
+                        // Make the section itself visible if it had initial opacity 0
                         targetElement.style.opacity = 1;
                         targetElement.style.transform = 'translateY(0)';
                     } else if (targetElement.classList.contains('experience-section')) {
@@ -1449,7 +1449,7 @@
                         contactItems.forEach((item, index) => {
                             item.style.animation = `fadeInUp 0.8s ease-out ${index * 0.15}s forwards`;
                         });
-                        // Remove initial opacity/transform for the section itself if it was set
+                        // Make the section itself visible if it had initial opacity 0
                         targetElement.style.opacity = 1;
                         targetElement.style.transform = 'translateY(0)';
                     } else {
@@ -1464,7 +1464,7 @@
         const sectionObservers = new IntersectionObserver(animateOnScroll, {
             root: null, // viewport
             rootMargin: '0px',
-            threshold: 0.2 // Adjust as needed, 20% of section visible
+            threshold: 0.1 // Adjusted for earlier triggering on mobile
         });
 
         // Observe all sections for animation
