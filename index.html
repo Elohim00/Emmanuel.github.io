@@ -99,7 +99,7 @@
         .hamburger-menu {
             display: none; /* Hidden by default, shown on mobile via media query */
             position: fixed;
-            top: 30px;
+            top: 30px; /* Initial top position */
             left: 20px; /* Positioned to the left */
             width: 40px;
             height: 40px;
@@ -111,8 +111,16 @@
             flex-direction: column;
             cursor: pointer;
             z-index: 1001; /* Above navigation */
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, top 0.3s ease; /* Add transition for top */
         }
+
+        .hamburger-menu.sticky {
+            top: 0; /* When sticky, move to top */
+            background: rgba(0, 0, 0, 0.9); /* Match sticky nav background */
+            padding: 5px 0; /* Adjust padding if necessary to align with sticky nav */
+            height: 50px; /* Adjust height to match sticky nav if needed */
+        }
+
 
         .hamburger-menu span {
             display: block;
@@ -1588,8 +1596,12 @@
         function checkStickyNav() {
             if (homeSection && window.scrollY > homeSection.offsetHeight - navHeight) { // Adjust threshold as needed
                 mainNav.classList.add('sticky');
+                // Also make hamburger menu sticky
+                hamburgerMenu.classList.add('sticky');
             } else {
                 mainNav.classList.remove('sticky');
+                // Remove sticky from hamburger menu
+                hamburgerMenu.classList.remove('sticky');
             }
         }
         window.addEventListener('scroll', checkStickyNav);
