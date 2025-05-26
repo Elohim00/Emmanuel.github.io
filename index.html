@@ -48,12 +48,34 @@
             z-index: 2;
         }
 
+        /* Portfolio Title at Top */
+        .portfolio-title {
+            position: fixed;
+            top: 30px; /* Default top position */
+            left: 40px;
+            color: #ffffff; /* Ensure white color */
+            font-size: 14px;
+            font-weight: bold; /* Modified: Bold font weight */
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            z-index: 1001; /* Higher z-index to be above nav */
+            transition: top 0.3s ease, background 0.3s ease, padding 0.3s ease;
+            background: transparent; /* Ensure transparent background */
+        }
+
+        /* Rule for when portfolio-title itself becomes sticky */
+        .portfolio-title.sticky {
+            top: 15px; /* Align with sticky nav padding */
+            color: #ffffff; /* Explicitly keep white color */
+            background: transparent; /* Ensure it stays transparent */
+        }
+
         /* Navigation Bar (Desktop) */
         .nav {
             position: fixed;
             top: 30px;
             right: 40px;
-            z-index: 1000;
+            z-index: 1000; /* Lower z-index than portfolio-title */
             display: flex;
             gap: 30px;
             transition: top 0.3s ease, background 0.3s ease, padding 0.3s ease; /* For sticky effect */
@@ -186,7 +208,7 @@
         .mobile-nav-overlay.open a:nth-child(3) { animation-delay: 0.2s; }
         .mobile-nav-overlay.open a:nth-child(4) { animation-delay: 0.25s; }
         .mobile-nav-overlay.open a:nth-child(5) { animation-delay: 0.3s; }
-        .mobile-nav-overlay.open a:nth-child(6) { animation-delay: 0.35s; } /* New Home link */
+        .mobile-nav-overlay.open a:nth-child(6) { animation-delay: 0.35s; }
 
 
         .mobile-nav-overlay a:hover {
@@ -224,7 +246,7 @@
         }
 
         .home-content h1 { /* Renamed from .hero-content h1 */
-            font-size: clamp(3rem, 6vw, 7rem);
+            font-size: clamp(3rem, 6vw, 6rem); /* Modified: Reduced max font-size for desktop */
             font-weight: 300;
             color: #ffffff;
             margin-bottom: 20px;
@@ -235,6 +257,22 @@
             color: #00ff88;
             font-weight: 600;
         }
+
+        /* Typing effect cursor */
+        .home-content .cursor {
+            display: inline-block;
+            background-color: #00ff88;
+            margin-left: 5px;
+            width: 3px;
+            height: 0.9em; /* Adjust to match the line height of the text */
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
 
         .home-content .subtitle { /* Renamed from .hero-content .subtitle */
             font-size: 1.4rem;
@@ -728,6 +766,7 @@
             line-height: 1.6;
         }
 
+
         /* Contact Section */
         .contact-section {
             background: #0f0f0f;
@@ -933,11 +972,16 @@
             }
 
             .nav {
-                display: none;
+                display: none; /* Hide desktop nav on mobile */
             }
 
             .hamburger-menu {
-                display: flex;
+                display: flex; /* Show hamburger on mobile */
+            }
+
+            .portfolio-title {
+                left: 70px; /* Modified: Adjusted left position */
+                top: 35px; /* Modified: Adjusted top position */
             }
 
             .skills-grid,
@@ -999,6 +1043,8 @@
                 height: 380px;
                 top: -65px;
                 left: -65px;
+                animation-duration: 30s;
+                animation-direction: reverse;
             }
             .home-section { /* Renamed from .hero */
                 padding-top: 80px;
@@ -1011,6 +1057,11 @@
         }
 
         @media (max-width: 400px) {
+            .portfolio-title {
+                left: 60px; /* Modified: Further adjust for smaller screens */
+                font-size: 12px;
+                top: 35px; /* Modified: Adjusted vertically */
+            }
             .profile-container {
                 width: 200px;
                 height: 200px;
@@ -1039,7 +1090,7 @@
             }
 
             .home-content .professional-summary { /* Renamed from .hero-content .professional-summary */
-                font-size: 1rem;
+                font-size: 1.0rem;
             }
 
             .section-title {
@@ -1061,7 +1112,7 @@
             .projects-grid,
             .timeline,
             .contact-grid,
-            .home-grid { /* Renamed from .hero-grid */
+            .home-grid {
                 padding: 0 15px;
             }
             /* Adjust mobile nav width for very small screens if needed */
@@ -1103,6 +1154,8 @@
 <body>
     <div class="noise-bg"></div>
 
+    <div class="portfolio-title">Emmanuel Omitogun's Portfolio</div>
+
     <nav class="nav" id="main-nav">
         <a href="#home">Home</a>
         <a href="#about">About</a>
@@ -1128,7 +1181,7 @@
     </div>
 
     <div class="container">
-        <section class="home-section" id="home"> <div class="home-grid"> <div class="home-content"> <h1>Emmanuel <span class="highlight">Omitogun</span></h1>
+        <section class="home-section" id="home"> <div class="home-grid"> <div class="home-content"> <h1><span id="typed-text"></span><span class="cursor">|</span></h1>
                     <p class="subtitle">Data Analyst & Business Intelligence Specialist</p>
                     <p class="professional-summary">
                         I'm a data analyst passionate about solving real-world problems using Power BI, Excel, SQL, and storytelling.
@@ -1449,6 +1502,74 @@
             });
         });
 
+        // Dynamic typing effect for Home section title
+        const typedTextSpan = document.querySelector("#typed-text");
+        const phrases = ["Hi, I'm Emmanuel <span class='highlight'>Omitogun</span>"];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 150; // Milliseconds per character typed
+        const deletingSpeed = 100; // Milliseconds per character deleted
+        const pauseBetweenPhrases = 1500; // Milliseconds to pause before typing next phrase
+
+        function typeEffect() {
+            const currentPhraseWithHtml = phrases[phraseIndex];
+            const plainTextMatch = currentPhraseWithHtml.match(/(.*)<span class='highlight'>(.*)<\/span>/);
+
+            let preHighlightText = "";
+            let highlightText = "";
+            let totalPlainText = "";
+
+            if (plainTextMatch && plainTextMatch.length === 3) {
+                preHighlightText = plainTextMatch[1]; // "Hi, I'm Emmanuel "
+                highlightText = plainTextMatch[2];    // "Omitogun"
+                totalPlainText = preHighlightText + highlightText; // "Hi, I'm Emmanuel Omitogun"
+            } else {
+                totalPlainText = currentPhraseWithHtml; // Fallback for no highlight
+                preHighlightText = currentPhraseWithHtml;
+            }
+
+            if (isDeleting) {
+                charIndex--;
+            } else {
+                charIndex++;
+            }
+
+            // Ensure charIndex stays within bounds of the total plain text
+            charIndex = Math.max(0, Math.min(charIndex, totalPlainText.length));
+
+            let currentRenderedText = "";
+
+            if (charIndex <= preHighlightText.length) {
+                // Typing/deleting the part before the highlight
+                currentRenderedText = totalPlainText.substring(0, charIndex);
+            } else {
+                // Typing/deleting the highlight part
+                const currentPreHighlight = preHighlightText;
+                const currentHighlight = highlightText.substring(0, charIndex - preHighlightText.length);
+                currentRenderedText = `${currentPreHighlight}<span class='highlight'>${currentHighlight}</span>`;
+            }
+
+            typedTextSpan.innerHTML = currentRenderedText;
+
+            // Determine if typing/deleting is complete
+            if (!isDeleting && charIndex === totalPlainText.length) {
+                // Typed the whole phrase, now pause then start deleting
+                setTimeout(() => isDeleting = true, pauseBetweenPhrases);
+            } else if (isDeleting && charIndex === 0) {
+                // Deleted the whole phrase, now pause then start typing again
+                isDeleting = false;
+                // Since there's only one phrase, phraseIndex will always remain 0
+            }
+
+            const currentSpeed = isDeleting ? deletingSpeed : typingSpeed;
+            setTimeout(typeEffect, currentSpeed);
+        }
+
+        // Start typing effect when the page loads
+        document.addEventListener("DOMContentLoaded", typeEffect);
+
+
         // Function to handle IntersectionObserver for sections
         const animateOnScroll = (entries, observer) => {
             entries.forEach(entry => {
@@ -1484,7 +1605,8 @@
                         // Remove initial opacity/transform for the section itself if it was set
                         targetElement.style.opacity = 1;
                         targetElement.style.transform = 'translateY(0)';
-                    } else if (targetElement.classList.contains('contact-section')) {
+                    }
+                    else if (targetElement.classList.contains('contact-section')) {
                         // Stagger animation for contact items
                         const contactItems = targetElement.querySelectorAll('.contact-item');
                         contactItems.forEach((item, index) => {
@@ -1597,14 +1719,17 @@
 
         // Sticky navigation bar
         const mainNav = document.getElementById('main-nav');
+        const portfolioTitle = document.querySelector('.portfolio-title');
         const homeSection = document.getElementById('home'); // Updated to target home section
         let navHeight = mainNav.offsetHeight;
 
         function checkStickyNav() {
             if (homeSection && window.scrollY > homeSection.offsetHeight - navHeight) { // Adjust threshold as needed
                 mainNav.classList.add('sticky');
+                portfolioTitle.classList.add('sticky'); /* Apply sticky class to portfolio title */
             } else {
                 mainNav.classList.remove('sticky');
+                portfolioTitle.classList.remove('sticky'); /* Remove sticky class from portfolio title */
             }
         }
         window.addEventListener('scroll', checkStickyNav);
