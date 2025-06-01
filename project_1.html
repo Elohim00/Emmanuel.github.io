@@ -583,6 +583,72 @@
             padding-bottom: 50px;
         }
 
+        /* Image Modal Styles */
+        .image-modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 10000; /* Sit on top */
+            padding-top: 60px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 900px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.5);
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 900px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #00ff88;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0.1)}
+            to {transform: scale(1)}
+        }
+
+        /* Responsive styles for modal */
+        @media only screen and (max-width: 700px){
+            .modal-content {
+                width: 100%;
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .container {
@@ -783,6 +849,49 @@
         #scroll-to-bottom {
             bottom: 30px;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+            min-width: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        table th,
+        table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        table tbody tr {
+            border-bottom: 1px solid #dddddd;
+            background-color: #f3f3f3;
+            color: #333;
+        }
+
+        table tbody tr:nth-of-type(even) {
+            background-color: #e0e0e0;
+        }
+
+        table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+
+        table tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
     </style>
 </head>
 <body>
@@ -892,11 +1001,46 @@
                     <img src="Images/eda_chart_example.png" alt="Response Rates by Segment">
                     <p>
                         To improve marketing ROI, Noventra analyzed how customer attributes—such as age, marital status, occupation, and preferred communication channels—shaped conversion outcomes in its insurance campaign. The findings revealed distinct behavioral patterns that inform more targeted and cost-effective engagement strategies.
+                    </p>
 
-                   <h3>I. High-performing segment analysis</h3> 
-                        
+                   <h3>I. High-performing segment analysis</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Persona Attribute</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Marital Status</td>
+                                <td>Married</td>
+                            </tr>
+                            <tr>
+                                <td>Occupation</td>
+                                <td>Executive</td>
+                            </tr>
+                            <tr>
+                                <td>Age Group</td>
+                                <td>25–34</td>
+                            </tr>
+                            <tr>
+                                <td>Preferred Channel</td>
+                                <td>Mobile</td>
+                            </tr>
+                             <tr>
+                                <td>Call Duration</td>
+                                <td>6–15 minutes</td>
+                            </tr>
+                            <tr>
+                                <td>Conversion Rate</td>
+                                <td>Over 23%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                        <p>
                         This group—married executives aged 25 to 34, primarily engaging through mobile—stood out with a conversion rate more than double the campaign average. They were highly efficient to convert, requiring far fewer outreach attempts. The underlying behavior suggests decisiveness, economic stability, and high responsiveness. Their conversion efficiency also indicates that sales or marketing resources are best focused here, as the return on effort is significantly higher.
-                        
+                        </p>
                         <ul>
                             <li>Age: 25–34</li>
                             <li>Marital status: Married</li>
@@ -908,11 +1052,45 @@
                             <li>Call duration: 6–15 minutes (confirmed from visuals)</li>
                             <li>Recommendation: Prioritize this segment for high-yield, low-effort targeting</li>
                         </ul>
-                          
-                  <h3>II. Mid-performing segment analysis</h3> 
-                        
+
+                  <h3>II. Mid-performing segment analysis</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Persona Attribute</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Marital Status</td>
+                                <td>Mixed (Single/Married)</td>
+                            </tr>
+                            <tr>
+                                <td>Occupation</td>
+                                <td>Educated Professionals</td>
+                            </tr>
+                            <tr>
+                                <td>Age Group</td>
+                                <td>35–44</td>
+                            </tr>
+                            <tr>
+                                <td>Preferred Channel</td>
+                                <td>Mixed</td>
+                            </tr>
+                             <tr>
+                                <td>Call Duration</td>
+                                <td>Longer than average</td>
+                            </tr>
+                            <tr>
+                                <td>Conversion Rate</td>
+                                <td>Moderate (~10-15%)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                        <p>
                         Educated professionals aged 35–44, with mixed marital status, showed moderate conversion performance. They required more touches and longer conversations before committing—making them a better fit for nurture campaigns. Their periodic spikes in responsiveness during March, May, and August suggest seasonality, which can inform campaign timing. This group is valuable, but success here depends on patient, well-timed follow-up.
-                        
+                        </p>
                      <ul>
                         <li>Age: 35–44</li>
                         <li>Marital status: Mixed (single and married)</li>
@@ -923,13 +1101,46 @@
                         <li>Call duration: Longer than average</li>
                         <li>Responsive months: March, May, August</li>
                    </ul>
-                        
-            
-                        
-                  <h3>III. Low-performing segment analysis</h3> 
-                        
+
+
+                  <h3>III. Low-performing segment analysis</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Persona Attribute</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Marital Status</td>
+                                <td>Mixed</td>
+                            </tr>
+                            <tr>
+                                <td>Occupation</td>
+                                <td>Students / Unemployed</td>
+                            </tr>
+                            <tr>
+                                <td>Age Group</td>
+                                <td>18–24</td>
+                            </tr>
+                            <tr>
+                                <td>Preferred Channel</td>
+                                <td>Landline</td>
+                            </tr>
+                             <tr>
+                                <td>Call Duration</td>
+                                <td>N/A</td>
+                            </tr>
+                            <tr>
+                                <td>Conversion Rate</td>
+                                <td><5% (Students), <10% (Landline)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                        <p>
                         This group—mostly students, unemployed individuals, and landline users aged 18–24—produced poor conversion outcomes. Despite high outreach effort, returns were minimal. They needed 7+ attempts to convert, and even then, success was limited. Fridays performed the worst in terms of conversion, aligning with this group’s low responsiveness. The data suggests reallocating resources away from this segment and automating any follow-up to conserve cost.
-                        
+                        </p>
                       <ul>
                         <li>Age: 18–24</li>
                         <li>Occupation: Students / Unemployed</li>
@@ -939,12 +1150,11 @@
                         <li>Weakest engagement: Fridays</li>
                         <li>Recommendation: Deprioritize this segment; shift to automated or low-cost channels</li>
                     </ul>
+                    <p>
+                        Although they represented only 18% of the contact base, they contributed to 36% of total positive responses
+                        They responded positively even across multiple contact attempts
+                        On average, only 4.3 calls were needed per response, compared to 23.6 across the full campaign
                     </p>
-                    <ul>
-                        <li>Although they represented only 18% of the contact base, they contributed to 36% of total positive responses</li>
-                        <li>They responded positively even across multiple contact attempts</li>
-                        <li>On average, only 4.3 calls were needed per response, compared to 23.6 across the full campaign</li>
-                    </ul>
                     <p>
                         This segment represented a high-leverage audience—an opportunity to concentrate effort for outsized return.
                     </p>
@@ -961,18 +1171,20 @@
                     <h3>3. Timing as a Multiplier</h3>
                     <img src="Images/daily_rate.png" alt="Daily Rate">
                     <p>
-                       
                         The daily conversion trends tell a clear story. Engagement is strongest at the beginning of the week, peaking on Monday and Tuesday with conversion rates of 20.08% and 21.23%, respectively. From there, responsiveness drops steadily—Wednesday falls to 14.56%, and by Friday, the rate plunges to just 4.41%. This isn’t a subtle shift; it’s a sharp contrast that suggests customer attention and openness are significantly front-loaded in the week.
+                    </p>
 
-                        
                      <img src="Images/heat_map.png" alt="Call Success by Month Heatmap">
-            
+
+                    <p>
                         But it’s not just about which day is better. When this pattern is viewed alongside the monthly heatmap, it reveals another layer: seasonality. During May through August, those already-strong Monday and Tuesday numbers climb even higher. For example, May’s Monday conversion sits at 3.46% of total monthly engagement, and July’s Tuesday follows closely at 2.80%. These gains may appear modest in isolation, but in the context of a campaign involving over 45,000 calls, they represent a meaningful difference—hundreds of additional responses, without expanding resources.
-
+                    </p>
+                    <p>
                         This kind of trend has practical implications. It suggests Noventra doesn’t need more calls, just smarter timing. Prioritizing early-week calling—especially during key seasonal windows—can make the same call center team significantly more effective. And on lower-response days like Thursday and Friday, those hours could be reallocated for follow-ups, training, or strategic planning, rather than pushing outreach that data shows is unlikely to land.
-
+                    </p>
+                    <p>
                         Taken together, these insights point to a more efficient model—one that respects not only what the company is doing, but when customers are most likely to respond. It’s less about working harder and more about calling when it counts.
-
+                    </p>
                     <p>
                         Shifting call schedules toward these responsive windows presented an immediate opportunity to improve outcomes with no increase in call volume.
                     </p>
@@ -1064,6 +1276,12 @@
     </div>
     <div class="scroll-to-bottom" id="scroll-to-bottom">
         <i class="fas fa-chevron-down"></i>
+    </div>
+
+    <div id="imageModal" class="image-modal">
+        <span class="close-button">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption" class="caption"></div>
     </div>
 
     <script>
@@ -1171,6 +1389,48 @@
                 document.title = shortBrowserTitle;
             } else {
                 document.title = originalBrowserTitle;
+            }
+        });
+
+        // Get the modal, image, and close button elements
+        const imageModal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
+        const captionText = document.getElementById("caption");
+        const closeButton = document.getElementsByClassName("close-button")[0];
+
+        // Get all images that should trigger the modal
+        const projectImages = document.querySelectorAll(".project-hero-image, .main-content img");
+
+        projectImages.forEach(img => {
+            img.addEventListener("click", function() {
+                imageModal.style.display = "block";
+                modalImage.src = this.src;
+                captionText.innerHTML = this.alt;
+                document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
+            });
+        });
+
+        // When the user clicks on <span> (x), close the modal
+        closeButton.addEventListener("click", function() {
+            imageModal.style.display = "none";
+            document.body.style.overflow = "auto"; // Re-enable scrolling
+        });
+
+        // When the user clicks anywhere outside of the image, close it
+        imageModal.addEventListener("click", function(event) {
+            if (event.target === imageModal) {
+                imageModal.style.display = "none";
+                document.body.style.overflow = "auto"; // Re-enable scrolling
+            }
+        });
+
+        // Close with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                if (imageModal.style.display === "block") {
+                    imageModal.style.display = "none";
+                    document.body.style.overflow = "auto";
+                }
             }
         });
     </script>
