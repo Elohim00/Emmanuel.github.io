@@ -850,47 +850,115 @@
             bottom: 30px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.95em;
-            min-width: 400px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        /* Styles for horizontally expanding tables */
+        .collapsible-table-container {
+            margin: 25px auto; /* Center the container, and match original table margin */
+            border: 1px solid #00ff88; /* Border for the container */
+            border-radius: 10px;
+            overflow: hidden; /* Keep content within bounds */
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
+            transition: all 0.7s ease-in-out; /* Smooth transition for width, shadow, etc. */
+            max-width: 70%; /* Default narrower width when not expanded */
+            min-width: 300px; /* Ensure it's not too small on narrow screens */
+            display: flex; /* Use flex to align header and content */
+            flex-direction: column;
         }
 
-        table thead tr {
+        .collapsible-table-container:hover {
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .collapsible-table-header {
+            background-color: #00ff88; /* Accent color for the header */
+            color: #0a0a0a;
+            padding: 15px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.15rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .collapsible-table-header:hover {
+            background-color: #00e676; /* Slightly darker green on hover */
+        }
+
+        .collapsible-table-header .toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible-table-container.expanded .toggle-icon {
+            transform: rotate(180deg); /* Rotate icon when expanded */
+        }
+
+        /* The content is always visible, but its parent container's width changes */
+        .collapsible-table-content {
+            padding: 20px; /* Always visible padding */
+            flex-grow: 1; /* Allows content to take available space */
+        }
+
+        /* When expanded, the container takes full width */
+        .collapsible-table-container.expanded {
+            max-width: 100%; /* Expands to full width of its parent (.main-content) */
+        }
+
+        /* Original table styles inside the collapsible content */
+        .collapsible-table-content table {
+            width: 100%; /* Table always takes 100% of its content container */
+            border-collapse: collapse;
+            margin: 0;
+            font-size: 0.95em;
+            min-width: unset;
+            border-radius: 0;
+            overflow: visible;
+            box-shadow: none;
+        }
+
+        .collapsible-table-content table thead tr {
             background-color: #009879;
             color: #ffffff;
             text-align: left;
             font-weight: bold;
         }
 
-        table th,
-        table td {
+        .collapsible-table-content table th,
+        .collapsible-table-content table td {
             padding: 12px 15px;
-            border: 1px solid #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter border for dark background */
         }
 
-        table tbody tr {
-            border-bottom: 1px solid #dddddd;
-            background-color: #f3f3f3;
-            color: #333;
+        .collapsible-table-content table tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.03); /* Lighter background for rows */
+            color: #e0e0e0;
         }
 
-        table tbody tr:nth-of-type(even) {
-            background-color: #e0e0e0;
+        .collapsible-table-content table tbody tr:nth-of-type(even) {
+            background-color: rgba(255, 255, 255, 0.05); /* Slightly different for even rows */
         }
 
-        table tbody tr:last-of-type {
-            border-bottom: 2px solid #009879;
+        .collapsible-table-content table tbody tr:last-of-type {
+            border-bottom: 2px solid #00ff88; /* Accent border for the last row */
         }
 
-        table tbody tr.active-row {
+        .collapsible-table-content table tbody tr.active-row {
             font-weight: bold;
-            color: #009879;
+            color: #00ff88;
+        }
+
+        /* Responsive adjustments for the container when expanded */
+        @media (max-width: 768px) {
+            .collapsible-table-container {
+                max-width: 90%; /* Adjust default width for smaller screens */
+            }
+            .collapsible-table-container.expanded {
+                max-width: 100%; /* Always expand to full width on small screens */
+            }
         }
     </style>
 </head>
@@ -1004,40 +1072,48 @@
                     </p>
 
                    <h3>I. High-performing segment analysis</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Persona Attribute</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Marital Status</td>
-                                <td>Married</td>
-                            </tr>
-                            <tr>
-                                <td>Occupation</td>
-                                <td>Executive</td>
-                            </tr>
-                            <tr>
-                                <td>Age Group</td>
-                                <td>25–34</td>
-                            </tr>
-                            <tr>
-                                <td>Preferred Channel</td>
-                                <td>Mobile</td>
-                            </tr>
-                             <tr>
-                                <td>Call Duration</td>
-                                <td>6–15 minutes</td>
-                            </tr>
-                            <tr>
-                                <td>Conversion Rate</td>
-                                <td>Over 23%</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                   <div class="collapsible-table-container">
+                       <div class="collapsible-table-header">
+                           High-performing Segment Details
+                           <i class="fas fa-chevron-down toggle-icon"></i>
+                       </div>
+                       <div class="collapsible-table-content">
+                           <table>
+                               <thead>
+                                   <tr>
+                                       <th>Persona Attribute</th>
+                                       <th>Value</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                   <tr>
+                                       <td>Marital Status</td>
+                                       <td>Married</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Occupation</td>
+                                       <td>Executive</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Age Group</td>
+                                       <td>25–34</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Preferred Channel</td>
+                                       <td>Mobile</td>
+                                   </tr>
+                                    <tr>
+                                       <td>Call Duration</td>
+                                       <td>6–15 minutes</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Conversion Rate</td>
+                                       <td>Over 23%</td>
+                                   </tr>
+                               </tbody>
+                           </table>
+                       </div>
+                   </div>
                         <p>
                         This group—married executives aged 25 to 34, primarily engaging through mobile—stood out with a conversion rate more than double the campaign average. They were highly efficient to convert, requiring far fewer outreach attempts. The underlying behavior suggests decisiveness, economic stability, and high responsiveness. Their conversion efficiency also indicates that sales or marketing resources are best focused here, as the return on effort is significantly higher.
                         </p>
@@ -1054,40 +1130,48 @@
                         </ul>
 
                   <h3>II. Mid-performing segment analysis</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Persona Attribute</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Marital Status</td>
-                                <td>Mixed (Single/Married)</td>
-                            </tr>
-                            <tr>
-                                <td>Occupation</td>
-                                <td>Educated Professionals</td>
-                            </tr>
-                            <tr>
-                                <td>Age Group</td>
-                                <td>35–44</td>
-                            </tr>
-                            <tr>
-                                <td>Preferred Channel</td>
-                                <td>Mixed</td>
-                            </tr>
-                             <tr>
-                                <td>Call Duration</td>
-                                <td>Longer than average</td>
-                            </tr>
-                            <tr>
-                                <td>Conversion Rate</td>
-                                <td>Moderate (~10-15%)</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                  <div class="collapsible-table-container">
+                      <div class="collapsible-table-header">
+                          Mid-performing Segment Details
+                          <i class="fas fa-chevron-down toggle-icon"></i>
+                      </div>
+                      <div class="collapsible-table-content">
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Persona Attribute</th>
+                                      <th>Value</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>Marital Status</td>
+                                      <td>Mixed (Single/Married)</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Occupation</td>
+                                      <td>Educated Professionals</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Age Group</td>
+                                      <td>35–44</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Preferred Channel</td>
+                                      <td>Mixed</td>
+                                  </tr>
+                                   <tr>
+                                      <td>Call Duration</td>
+                                      <td>Longer than average</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Conversion Rate</td>
+                                      <td>Moderate (~10-15%)</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
                         <p>
                         Educated professionals aged 35–44, with mixed marital status, showed moderate conversion performance. They required more touches and longer conversations before committing—making them a better fit for nurture campaigns. Their periodic spikes in responsiveness during March, May, and August suggest seasonality, which can inform campaign timing. This group is valuable, but success here depends on patient, well-timed follow-up.
                         </p>
@@ -1104,40 +1188,48 @@
 
 
                   <h3>III. Low-performing segment analysis</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Persona Attribute</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Marital Status</td>
-                                <td>Mixed</td>
-                            </tr>
-                            <tr>
-                                <td>Occupation</td>
-                                <td>Students / Unemployed</td>
-                            </tr>
-                            <tr>
-                                <td>Age Group</td>
-                                <td>18–24</td>
-                            </tr>
-                            <tr>
-                                <td>Preferred Channel</td>
-                                <td>Landline</td>
-                            </tr>
-                             <tr>
-                                <td>Call Duration</td>
-                                <td>N/A</td>
-                            </tr>
-                            <tr>
-                                <td>Conversion Rate</td>
-                                <td><5% (Students), <10% (Landline)</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                  <div class="collapsible-table-container">
+                      <div class="collapsible-table-header">
+                          Low-performing Segment Details
+                          <i class="fas fa-chevron-down toggle-icon"></i>
+                      </div>
+                      <div class="collapsible-table-content">
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Persona Attribute</th>
+                                      <th>Value</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>Marital Status</td>
+                                      <td>Mixed</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Occupation</td>
+                                      <td>Students / Unemployed</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Age Group</td>
+                                      <td>18–24</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Preferred Channel</td>
+                                      <td>Landline</td>
+                                  </tr>
+                                   <tr>
+                                      <td>Call Duration</td>
+                                      <td>N/A</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Conversion Rate</td>
+                                      <td><5% (Students), <10% (Landline)</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
                         <p>
                         This group—mostly students, unemployed individuals, and landline users aged 18–24—produced poor conversion outcomes. Despite high outreach effort, returns were minimal. They needed 7+ attempts to convert, and even then, success was limited. Fridays performed the worst in terms of conversion, aligning with this group’s low responsiveness. The data suggests reallocating resources away from this segment and automating any follow-up to conserve cost.
                         </p>
@@ -1217,7 +1309,7 @@
                         If implemented, these recommendations could enable Noventra to:
                     </p>
                     <ul>
-                        <li>Double campaign engagement rates without increasing total outreach volume</li>
+                        <li>Doublen campaign engagement rates without increasing total outreach volume</li>
                         <li>Significantly reduce operational waste by avoiding low-return contact strategies</li>
                         <li>Enhance customer experience by aligning outreach with actual preferences and behavior</li>
                         <li>Shift from generic outreach to precision engagement, enabling long-term retention and better conversion outcomes</li>
@@ -1432,6 +1524,16 @@
                     document.body.style.overflow = "auto";
                 }
             }
+        });
+
+        // Collapsible Table functionality
+        const collapsibleHeaders = document.querySelectorAll('.collapsible-table-header');
+
+        collapsibleHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                const container = this.closest('.collapsible-table-container');
+                container.classList.toggle('expanded');
+            });
         });
     </script>
 </body>
